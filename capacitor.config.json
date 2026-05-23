@@ -1,0 +1,6 @@
+{
+  "appId": "com.muminjon.deenlife",
+  "appName": "Deen & Life",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}
