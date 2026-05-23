@@ -1,0 +1,2133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#030710">
+<title>Deen & Life — Kokand Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg0:#030710;--bg1:#060d1a;--bg2:#0b1628;--bg3:#111e38;--bg4:#162240;
+  --gold:#c9a84c;--gold2:#e8c96d;--gold3:#f5dfa0;--gold-glow:rgba(201,168,76,.18);
+  --green:#2ecc71;--green2:#27ae60;--green-dim:rgba(46,204,113,.1);
+  --blue:#4a90d9;--blue2:#3a80c9;--blue-dim:rgba(74,144,217,.1);
+  --purple:#8b5cf6;--purple2:#7c3aed;--purple-dim:rgba(139,92,246,.1);
+  --red:#ef4444;--red2:#dc2626;--red-dim:rgba(239,68,68,.1);
+  --orange:#f97316;--cyan:#06b6d4;
+  --t1:#eef2ff;--t2:#8896b3;--t3:#56668a;--t4:#2a3552;
+  --border:rgba(201,168,76,.12);--border2:rgba(255,255,255,.07);--border3:rgba(255,255,255,.04);
+  --cardbg:rgba(11,22,40,.85);--inpbg:rgba(255,255,255,.05);
+  --r:18px;--r2:14px;--r3:10px;--r4:8px;
+  --font:'Outfit',sans-serif;
+}
+body.light{
+  --bg0:#eef1f7;--bg1:#e6eaf2;--bg2:#ffffff;--bg3:#f1f4fa;--bg4:#e8ecf4;
+  --t1:#101728;--t2:#5a6577;--t3:#8a93a5;--t4:#c2c9d6;
+  --border:rgba(201,168,76,.25);--border2:rgba(16,23,40,.1);--border3:rgba(16,23,40,.06);
+  --cardbg:#ffffff;--inpbg:rgba(16,23,40,.04);--gold-glow:rgba(201,168,76,.14);
+  --green-dim:rgba(46,204,113,.13);--blue-dim:rgba(74,144,217,.13);
+  --purple-dim:rgba(139,92,246,.13);--red-dim:rgba(239,68,68,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:var(--bg0);color:var(--t1);transition:background .3s,color .3s}
+button,input,textarea,select{font-family:var(--font);outline:none}
+button{cursor:pointer;border:none;background:none;color:inherit}
+
+.app{max-width:440px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--bg0)}
+.cosmos{position:absolute;inset:0;pointer-events:none;z-index:0}
+.cosmos-stars{position:absolute;inset:0;opacity:1;transition:opacity .3s;background:
+  radial-gradient(1.5px 1.5px at 8% 6%,rgba(255,255,255,.8) 0,transparent 100%),
+  radial-gradient(1px 1px at 92% 9%,rgba(255,255,255,.55) 0,transparent 100%),
+  radial-gradient(2px 2px at 31% 4%,rgba(201,168,76,.6) 0,transparent 100%),
+  radial-gradient(1px 1px at 63% 13%,rgba(255,255,255,.5) 0,transparent 100%),
+  radial-gradient(1.5px 1.5px at 18% 24%,rgba(255,255,255,.55) 0,transparent 100%),
+  radial-gradient(1px 1px at 75% 30%,rgba(255,255,255,.32) 0,transparent 100%),
+  radial-gradient(1px 1px at 44% 18%,rgba(255,255,255,.65) 0,transparent 100%),
+  radial-gradient(2px 2px at 87% 5%,rgba(201,168,76,.4) 0,transparent 100%),
+  radial-gradient(1px 1px at 52% 36%,rgba(255,255,255,.28) 0,transparent 100%),
+  radial-gradient(1px 1px at 25% 44%,rgba(255,255,255,.2) 0,transparent 100%),
+  radial-gradient(1.5px 1.5px at 70% 21%,rgba(255,255,255,.4) 0,transparent 100%),
+  radial-gradient(1px 1px at 85% 40%,rgba(255,255,255,.22) 0,transparent 100%)}
+body.light .cosmos-stars{opacity:0}
+.cosmos-glow{position:absolute;top:0;left:0;right:0;height:280px;background:radial-gradient(ellipse 80% 200px at 50% -20px,rgba(201,168,76,.07) 0,transparent 100%)}
+
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;z-index:5;-webkit-overflow-scrolling:touch}
+.scroll::-webkit-scrollbar{display:none}
+.pb{height:20px}
+.screen{display:none}
+.screen.on{display:block;animation:screenIn .26s cubic-bezier(.4,0,.2,1)}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.statusbar{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:10px 20px 0;flex-shrink:0}
+.stime{font-size:14px;font-weight:800;letter-spacing:-.3px}
+.sstatus{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2);font-weight:600}
+
+.bnav{position:relative;z-index:20;background:rgba(6,13,26,.97);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-top:1px solid var(--border);padding:6px 0 max(12px,env(safe-area-inset-bottom));flex-shrink:0}
+body.light .bnav{background:rgba(255,255,255,.97)}
+.brow{display:flex;justify-content:space-around;align-items:center}
+.bitem{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 3px;border-radius:12px;cursor:pointer;transition:all .2s;min-width:40px}
+.bitem:active{transform:scale(.85)}
+.bicon{font-size:18px;transition:all .25s;line-height:1}
+.blabel{font-size:8px;font-weight:800;color:var(--t3);letter-spacing:.3px;text-transform:uppercase;transition:color .2s}
+.bitem.on .blabel{color:var(--gold)}
+.bitem.on .bicon{transform:translateY(-2px);filter:drop-shadow(0 0 7px rgba(201,168,76,.7))}
+.bcenter{width:52px;height:52px;background:linear-gradient(145deg,var(--gold),#9a6f28);border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:23px;box-shadow:0 4px 20px rgba(201,168,76,.4);cursor:pointer;transition:all .18s;margin-top:-14px;flex-shrink:0}
+.bcenter:active{transform:scale(.88)}
+.bcenter.on{box-shadow:0 4px 26px rgba(201,168,76,.65),0 0 0 2px rgba(201,168,76,.35)}
+
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(15,22,40,.97);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);color:#eef2ff;font-size:12px;font-weight:600;padding:11px 18px;border-radius:24px;z-index:9999;opacity:0;transition:all .28s cubic-bezier(.4,0,.2,1);pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.5);max-width:90vw}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:24px 24px 0 0;padding:18px 18px max(20px,env(safe-area-inset-bottom));width:100%;max-width:440px;max-height:88dvh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.modal-bg.open .modal{transform:translateY(0)}
+.modal::-webkit-scrollbar{display:none}
+.mhandle{width:36px;height:4px;background:var(--t4);border-radius:2px;margin:0 auto 16px}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mtitle{font-size:16px;font-weight:800}
+.mclose{font-size:20px;color:var(--t3);width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.mgap{display:flex;flex-direction:column;gap:9px}
+
+.card{background:var(--cardbg);backdrop-filter:blur(12px);border:1px solid var(--border2);border-radius:var(--r);padding:16px;margin:0 14px 10px;position:relative}
+.card.gold-b{border-color:rgba(201,168,76,.2)}
+.card.green-b{border-color:rgba(46,204,113,.18)}
+.card.blue-b{border-color:rgba(74,144,217,.18)}
+.card.purple-b{border-color:rgba(139,92,246,.18)}
+.card.red-b{border-color:rgba(239,68,68,.15)}
+.card.tap{cursor:pointer;transition:transform .15s}
+.card.tap:active{transform:scale(.985)}
+
+.clabel{font-size:9px;text-transform:uppercase;letter-spacing:1.8px;font-weight:800;margin-bottom:8px}
+.clabel.gold{color:var(--gold)}.clabel.green{color:var(--green)}.clabel.blue{color:var(--blue)}.clabel.purple{color:var(--purple)}.clabel.red{color:var(--red)}.clabel.white{color:var(--t2)}
+.ptitle{font-size:22px;font-weight:900;padding:14px 20px 2px;letter-spacing:-.3px}
+.psub{font-size:12px;color:var(--t2);padding:0 20px 12px}
+.row{display:flex;align-items:center;gap:10px}
+.row.between{justify-content:space-between}
+.sectlabel{padding:4px 16px 7px;font-size:12px;font-weight:800}
+
+.shimmer{background:linear-gradient(90deg,var(--gold) 0,var(--gold2) 35%,var(--gold3) 50%,var(--gold2) 65%,var(--gold) 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 3s linear infinite}
+@keyframes sh{0%{background-position:200% center}100%{background-position:-200% center}}
+
+.pbar{background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden}
+body.light .pbar{background:rgba(16,23,40,.07)}
+.pbar.h4{height:4px}.pbar.h6{height:6px}.pbar.h8{height:8px}
+.pfill{height:100%;border-radius:6px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.pfill.green{background:linear-gradient(90deg,#27ae60,var(--green));box-shadow:0 0 8px rgba(46,204,113,.4)}
+.pfill.gold{background:linear-gradient(90deg,#9a6f28,var(--gold));box-shadow:0 0 8px rgba(201,168,76,.3)}
+.pfill.blue{background:linear-gradient(90deg,var(--blue2),var(--blue));box-shadow:0 0 8px rgba(74,144,217,.4)}
+.pfill.purple{background:linear-gradient(90deg,var(--purple2),var(--purple));box-shadow:0 0 8px rgba(139,92,246,.4)}
+.pfill.red{background:linear-gradient(90deg,var(--red2),var(--red))}
+.pfill.orange{background:linear-gradient(90deg,#c2410c,var(--orange))}
+
+.badge{font-size:9px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.3px}
+.badge.green{background:var(--green-dim);color:var(--green)}
+.badge.gold{background:var(--gold-glow);color:var(--gold)}
+.badge.blue{background:var(--blue-dim);color:var(--blue)}
+.badge.purple{background:var(--purple-dim);color:var(--purple)}
+.badge.red{background:var(--red-dim);color:var(--red)}
+.badge.dim{background:rgba(255,255,255,.05);color:var(--t3)}
+body.light .badge.dim{background:rgba(16,23,40,.05)}
+
+.btn{padding:12px 16px;border-radius:var(--r3);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;border:1px solid transparent;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:linear-gradient(135deg,var(--gold),#9a6f28);color:#000;box-shadow:0 4px 16px rgba(201,168,76,.3)}
+.btn.ghost{background:var(--inpbg);border-color:var(--border2);color:var(--t1)}
+.btn.green-b{background:var(--green-dim);border-color:rgba(46,204,113,.25);color:var(--green)}
+.btn.red-b{background:var(--red-dim);border-color:rgba(239,68,68,.2);color:var(--red)}
+.btn.purple-b{background:var(--purple-dim);border-color:rgba(139,92,246,.25);color:var(--purple)}
+.btn.block{width:100%}
+.btn.sm{padding:7px 12px;font-size:11px;border-radius:8px}
+
+.inp{background:var(--inpbg);border:1px solid var(--border2);border-radius:var(--r2);padding:12px 14px;font-size:13px;color:var(--t1);width:100%;transition:border-color .2s}
+.inp:focus{border-color:rgba(201,168,76,.35)}
+.inp::placeholder{color:var(--t3)}
+select.inp{appearance:none;-webkit-appearance:none}
+
+.hero{padding:10px 20px 26px;position:relative;overflow:hidden}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start}
+.ar-greeting{font-family:'Amiri',serif;font-size:16px;color:var(--gold);text-shadow:0 0 20px rgba(201,168,76,.5);margin-bottom:1px}
+.greet-line{font-size:12px;color:var(--t2);font-weight:600}
+.main-name{font-size:21px;font-weight:900;line-height:1.15;margin-top:1px}
+.main-name span{color:var(--gold2)}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.live-time{font-size:32px;font-weight:900;letter-spacing:-1.5px;line-height:1}
+.live-sec{font-size:11px;color:var(--gold);font-weight:700}
+.hero-row2{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px}
+.avatar-btn{width:38px;height:38px;background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:17px;font-weight:700;color:var(--gold);cursor:pointer;flex-shrink:0}
+.avatar-btn:active{transform:scale(.9)}
+.moon{font-size:24px;animation:float 5s ease-in-out infinite;filter:drop-shadow(0 0 12px rgba(201,168,76,.6))}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-6px) rotate(8deg)}}
+.dates{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.dchip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 11px;font-size:10px;color:var(--t2);display:flex;align-items:center;gap:4px;font-weight:600}
+body.light .dchip{background:rgba(16,23,40,.04);border-color:rgba(16,23,40,.08)}
+.dchip.hijri{background:var(--gold-glow);border-color:rgba(201,168,76,.3);color:var(--gold)}
+.mosque-bg{position:absolute;bottom:0;left:0;right:0;height:52px;opacity:.6;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 440 52'%3E%3Cpath d='M0 52V39Q36 39 36 30Q36 22 43 22Q45 22 45 15Q45 7 48 4Q50 1 52 4Q52 9 55 15Q55 22 62 22Q69 22 69 30Q69 39 105 39V52Z' fill='%230b1628'/%3E%3Cpath d='M175 52V38Q202 38 202 28Q202 20 209 20Q211 20 211 13Q211 5 214 2Q216 -1 218 2Q218 7 221 13Q221 20 228 20Q235 20 235 28Q235 38 262 38V52Z' fill='%230b1628'/%3E%3Cpath d='M330 52V38Q356 38 356 29Q356 21 363 21Q365 21 365 14Q365 6 368 3Q370 0 372 3Q372 8 375 14Q375 21 382 21Q389 21 389 29Q389 38 440 38V52Z' fill='%230b1628'/%3E%3C/svg%3E") no-repeat bottom/cover}
+body.light .mosque-bg{filter:invert(1) brightness(.85);opacity:.12}
+.toolbar{display:flex;gap:6px;padding:0 14px 8px;flex-wrap:wrap}
+.tool-btn{background:var(--inpbg);border:1px solid var(--border2);border-radius:9px;padding:7px 11px;font-size:11px;font-weight:700;color:var(--t2);display:flex;align-items:center;gap:4px}
+.tool-btn:active{transform:scale(.95)}
+
+.prayer-now{border-radius:var(--r);padding:12px 16px;margin:0 14px 10px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:linear-gradient(135deg,rgba(46,204,113,.12),rgba(46,204,113,.03));border:1px solid rgba(46,204,113,.22)}
+.prayer-now.urgent{background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(239,68,68,.04));border-color:rgba(239,68,68,.35);animation:pulseU 1.6s infinite}
+@keyframes pulseU{0%,100%{opacity:1}50%{opacity:.7}}
+.pn-label{font-size:9px;color:var(--t3);font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:3px}
+.pn-name{font-size:17px;font-weight:900}
+.pn-time{font-size:10px;color:var(--t3);margin-top:1px}
+.pn-cd{font-size:23px;font-weight:900;letter-spacing:-1px;font-variant-numeric:tabular-nums;text-align:right}
+.pn-sub{font-size:9px;color:var(--t3);text-align:right;margin-top:1px}
+
+.niyyah{background:linear-gradient(135deg,rgba(201,168,76,.09),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:var(--r);padding:14px 16px;margin:0 14px 10px;cursor:pointer;position:relative;overflow:hidden}
+.niyyah:active{border-color:rgba(201,168,76,.4)}
+.niyyah-bism{position:absolute;right:12px;top:7px;font-family:'Amiri',serif;font-size:17px;color:var(--gold);opacity:.18}
+.niyyah-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:var(--gold);font-weight:800;margin-bottom:5px}
+.niyyah-txt{font-size:13px;line-height:1.55;font-weight:500;padding-right:22px}
+
+.dual-row{display:grid;grid-template-columns:1.25fr .75fr;gap:10px;margin:0 14px 10px}
+.score-circle{position:relative;width:74px;height:74px;margin:2px auto 0}
+.score-circle svg{transform:rotate(-90deg)}
+.score-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;font-weight:900}
+
+.ai-tip{background:linear-gradient(135deg,#0e1528,#141b2d);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;margin:0 14px 10px}
+body.light .ai-tip{background:linear-gradient(135deg,#eef1fb,#f6f7fc)}
+.ai-tip-lbl{font-size:11px;color:var(--purple);font-weight:800}
+.ai-tip-txt{font-size:12px;line-height:1.5;color:var(--t2);margin-top:5px}
+
+.achv-row{display:flex;gap:8px;overflow-x:auto;padding:2px 14px 4px;margin-bottom:10px;scrollbar-width:none}
+.achv-row::-webkit-scrollbar{display:none}
+.achv-badge{flex-shrink:0;width:46px;height:46px;border-radius:50%;background:var(--inpbg);border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-size:21px;opacity:.35;transition:all .3s}
+.achv-badge.earned{opacity:1;border-color:var(--gold);background:var(--gold-glow);box-shadow:0 0 14px rgba(201,168,76,.3)}
+
+.rings-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 14px 10px}
+.rcard{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:11px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:transform .15s}
+.rcard:active{transform:scale(.93)}
+.rsvg{position:relative;width:46px;height:46px}
+.rsvg svg{transform:rotate(-90deg)}
+.rval{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:900;line-height:1}
+.rlbl{font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;font-weight:800;text-align:center}
+
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px}
+.dash-box{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.dash-name{font-size:10px;color:var(--t3);text-transform:uppercase;font-weight:800;letter-spacing:.5px}
+.dash-pct{font-size:16px;font-weight:900}
+
+.qa-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:0 14px 10px}
+.qaitem{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:transform .15s}
+.qaitem:active{transform:scale(.85)}
+.qaico{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:21px;border:1px solid rgba(255,255,255,.06)}
+.qalbl{font-size:9px;color:var(--t2);font-weight:700;text-align:center}
+
+.namaz-row{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:10px}
+.nitem{display:flex;flex-direction:column;align-items:center;gap:3px}
+.ncircle{width:52px;height:52px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .22s;gap:1px}
+.ncircle:active{transform:scale(.85)}
+.nc-ico{font-size:14px}
+.nc-mark{font-size:10px;font-weight:900}
+.nc-done{background:radial-gradient(circle at 35% 30%,#3ddd84,var(--green2));box-shadow:0 0 14px rgba(46,204,113,.45);color:#fff}
+.nc-next{background:linear-gradient(145deg,var(--gold2),#9a6f28);color:#000;animation:pgold 2.5s ease-in-out infinite}
+.nc-skip{background:rgba(239,68,68,.12);border:1.5px solid rgba(239,68,68,.35);color:var(--red)}
+.nc-pend{background:var(--inpbg);border:1.5px solid var(--border2);color:var(--t3)}
+@keyframes pgold{0%,100%{box-shadow:0 0 10px rgba(201,168,76,.35)}50%{box-shadow:0 0 24px rgba(201,168,76,.7)}}
+.nname{font-size:9px;color:var(--t2);font-weight:700}.ntime{font-size:8px;color:var(--t3)}
+
+.task-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border3)}
+.task-item:last-child{border:none}
+.check{width:22px;height:22px;border-radius:7px;border:2px solid var(--t4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all .2s;cursor:pointer}
+.check.done{background:var(--green);border-color:var(--green);box-shadow:0 0 8px rgba(46,204,113,.4);color:#fff}
+.task-body{flex:1;cursor:pointer;min-width:0}
+.task-title{font-size:13px;font-weight:600}
+.task-title.done{text-decoration:line-through;color:var(--t3)}
+.task-meta{font-size:10px;color:var(--t3);margin-top:1px}
+.task-del{font-size:14px;color:var(--t4);padding:4px 6px;flex-shrink:0}
+.task-del:active{color:var(--red)}
+
+.aname{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.22);border-radius:var(--r);padding:18px;margin:0 14px 12px;text-align:center;position:relative;overflow:hidden}
+.aname-ar{font-family:'Amiri',serif;font-size:36px;color:var(--gold);text-shadow:0 0 20px rgba(201,168,76,.5);line-height:1.3;margin-bottom:5px}
+.aname-lat{font-size:15px;font-weight:800;color:var(--gold2)}
+.aname-mean{font-size:11px;color:var(--t2);margin-top:4px;line-height:1.5}
+
+.iitem{display:flex;align-items:center;gap:11px;background:var(--cardbg);border:1px solid var(--border3);border-radius:var(--r2);padding:12px 13px;margin:0 14px 7px;transition:all .22s}
+.iitem.done{border-color:rgba(46,204,113,.2);background:rgba(46,204,113,.05)}
+.iitem.skipped{border-color:rgba(239,68,68,.15);background:rgba(239,68,68,.04);opacity:.72}
+.iicon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--inpbg)}
+.iitem.done .iicon{background:var(--green-dim)}
+.iitem.skipped .iicon{background:var(--red-dim)}
+.iinfo{flex:1;cursor:pointer;min-width:0}
+.iname{font-size:13px;font-weight:700}.isub{font-size:10px;color:var(--t3);margin-top:2px}
+.icheck{width:28px;height:28px;border-radius:9px;border:2px solid var(--t4);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:all .2s;cursor:pointer}
+.iitem.done .icheck{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 0 10px rgba(46,204,113,.35)}
+.iitem.skipped .icheck{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+
+.ring-center{display:flex;justify-content:center;margin:4px 0 12px}
+.ring-big{position:relative;width:140px;height:140px}
+.ring-big svg{transform:rotate(-90deg)}
+.ring-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.ring-num{font-size:30px;font-weight:900;line-height:1}
+.ring-sub{font-size:10px;color:var(--t2);margin-top:3px}
+
+.counter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 10px}
+.counter-card{background:linear-gradient(135deg,#101a30,#0a1322);border:1px solid var(--border2);border-radius:var(--r2);padding:18px 12px;text-align:center;cursor:pointer;position:relative;transition:transform .1s}
+body.light .counter-card{background:linear-gradient(135deg,#f1f3fb,#fbfbfd)}
+.counter-card:active{transform:scale(.95)}
+.counter-title{font-size:12px;font-weight:800;color:var(--gold);margin-bottom:5px}
+.counter-val{font-size:30px;font-weight:900}
+.counter-sub{font-size:10px;color:var(--t3);margin-top:3px}
+.counter-gear{position:absolute;top:8px;right:10px;font-size:13px;color:var(--t3);padding:4px}
+.counter-bar{margin-top:8px}
+
+.zikr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 12px}
+.zcard{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}
+.zcard:active{transform:scale(.95)}
+.zring{position:relative;width:58px;height:58px}
+.zring svg{transform:rotate(-90deg)}
+.zcnt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:15px;font-weight:900}
+.zar{font-family:'Amiri',serif;font-size:16px;text-align:center;line-height:1.4}
+.zname{font-size:10px;color:var(--t3);font-weight:700}
+.ztgt{font-size:8px;color:var(--t4)}
+.zhint{font-size:9px;color:var(--gold);font-weight:700;background:var(--gold-glow);padding:3px 8px;border-radius:10px}
+
+.tasbih{display:flex;flex-direction:column;align-items:center;gap:14px;padding:8px 0 4px}
+.tasbih-ar{font-family:'Amiri',serif;font-size:26px;color:var(--gold);text-align:center;text-shadow:0 0 20px rgba(201,168,76,.4)}
+.tasbih-num{font-size:64px;font-weight:900;letter-spacing:-3px;line-height:1;min-height:66px}
+.tasbih-btn{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 35% 32%,rgba(201,168,76,.22),rgba(201,168,76,.04));border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:36px;cursor:pointer;transition:all .1s;box-shadow:0 0 40px rgba(201,168,76,.12)}
+.tasbih-btn:active{transform:scale(.92);box-shadow:0 0 60px rgba(201,168,76,.3)}
+.tasbih-meta{font-size:12px;color:var(--t3)}
+
+.fin-hero{padding:18px 20px 14px;text-align:center;position:relative}
+.fin-bal{font-size:40px;font-weight:900;color:var(--gold);text-shadow:0 0 24px rgba(201,168,76,.3);letter-spacing:-1.5px}
+.fin-lbl{font-size:10px;color:var(--t3);margin-top:3px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
+.fin-eye{position:absolute;top:14px;right:20px;font-size:18px;opacity:.6;cursor:pointer}
+.fin-donut-wrap{display:flex;align-items:center;gap:18px;background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin:0 14px 10px}
+.fin-donut{width:104px;height:104px;flex-shrink:0;transform:rotate(-90deg)}
+.fin-legend{flex:1;display:flex;flex-direction:column;gap:9px}
+.fin-leg-item{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--t2);font-weight:600}
+.fin-leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.fin-leg-pct{margin-left:auto;font-weight:800;color:var(--t1)}
+.fin-tabs{display:flex;gap:8px;margin-bottom:14px}
+.fin-tab{flex:1;text-align:center;padding:11px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;background:var(--inpbg);border:1px solid var(--border2);color:var(--t3);transition:all .25s}
+.fin-tab.act-exp{background:var(--red);border-color:var(--red);color:#fff}
+.fin-tab.act-inc{background:var(--green);border-color:var(--green);color:#fff}
+.fin-calc-disp{text-align:right;font-size:36px;font-weight:900;padding:6px 12px;margin-bottom:8px;min-height:52px;letter-spacing:-1px;border-bottom:2px solid var(--border2);display:flex;justify-content:flex-end;align-items:baseline;gap:8px}
+.fin-calc-cur{font-size:14px;color:var(--gold);font-weight:700}
+.fin-calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+.calc-btn{aspect-ratio:1;border-radius:14px;font-size:21px;font-weight:800;background:var(--inpbg);color:var(--t1);display:flex;align-items:center;justify-content:center;transition:all .12s}
+.calc-btn:active{background:var(--bg4);transform:scale(.93)}
+.calc-btn.fn{color:var(--purple);font-size:15px;font-weight:700}
+.calc-btn.del{color:var(--red);font-size:17px}
+.calc-btn.ok{background:var(--green);color:#fff;font-size:19px}
+.fin-cat-scroll{display:flex;gap:9px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.fin-cat-scroll::-webkit-scrollbar{display:none}
+.fin-cat{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 14px;border-radius:16px;cursor:pointer;background:var(--inpbg);border:1px solid transparent;min-width:70px;transition:all .2s}
+.fin-cat.sel{border-color:var(--purple);background:var(--purple-dim);box-shadow:0 0 14px rgba(139,92,246,.25)}
+.fin-cat-circ{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.fin-cat-lbl{font-size:10px;color:var(--t2);font-weight:700;text-align:center}
+.fin-addcat{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;margin-top:6px;border-radius:11px;background:transparent;border:1px dashed var(--t4);color:var(--t3);font-size:12px;font-weight:600;width:100%}
+.fin-hist-tabs{display:flex;gap:4px}
+.fin-hist-tab{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;color:var(--t3);transition:all .2s}
+.fin-hist-tab.act{background:var(--purple);color:#fff}
+.tx-datehdr{font-size:10px;color:var(--t3);font-weight:800;padding:11px 2px 5px;text-transform:uppercase;letter-spacing:1px}
+.tx-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border3)}
+.tx-row:last-child{border:none}
+.tx-circ{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.tx-info{flex:1;min-width:0}
+.tx-name{font-size:13px;font-weight:700}
+.tx-meta{font-size:10px;color:var(--t3);margin-top:2px}
+.tx-amt{font-size:15px;font-weight:900;text-align:right;flex-shrink:0;letter-spacing:-.3px}
+.tx-amt.income{color:var(--green)}
+.tx-del{width:26px;height:26px;border-radius:50%;background:var(--red-dim);color:var(--red);font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.debt-card{background:linear-gradient(135deg,#1a1430,#120f22);border:1px solid rgba(139,92,246,.2);border-radius:var(--r);padding:18px;margin:0 14px 10px}
+body.light .debt-card{background:linear-gradient(135deg,#f3f0fc,#faf9fe)}
+.debt-total{font-size:30px;font-weight:900;margin-top:4px}
+.debt-pred{font-size:11px;color:var(--gold);margin-top:5px;font-weight:600}
+.debt-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border3)}
+.debt-item:last-child{border:none}
+.debt-name{font-size:13px;font-weight:700}
+.debt-date{font-size:10px;color:var(--t3);margin-top:2px}
+.debt-amt{font-size:14px;font-weight:900}
+.debt-btns{display:flex;gap:4px}
+.debt-mini{width:30px;height:30px;border-radius:9px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center}
+.debt-plus{background:var(--green-dim);color:var(--green)}
+.debt-minus{background:var(--red-dim);color:var(--red)}
+
+.streak-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 14px 10px}
+.sbox{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:12px 6px;text-align:center}
+.sval{font-size:17px;font-weight:900;line-height:1}
+.slbl{font-size:8px;color:var(--t3);margin-top:4px;text-transform:uppercase;letter-spacing:.3px;font-weight:700}
+.week-chart{display:flex;align-items:flex-end;gap:6px;height:90px;padding-top:4px}
+.wcol{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.wpct{font-size:9px;font-weight:800}
+.wbar{border-radius:5px 5px 0 0;width:100%;transition:height .7s cubic-bezier(.4,0,.2,1);min-height:4px}
+.wday{font-size:8px;color:var(--t3);font-weight:800;text-transform:uppercase}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-hd{font-size:9px;color:var(--t3);font-weight:800;padding:4px 0}
+.cal-cell{aspect-ratio:1;border-radius:9px;background:var(--inpbg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--t3)}
+.cal-cell.data{background:rgba(46,204,113,.22);color:var(--green);border:1px solid rgba(46,204,113,.4)}
+.cal-cell.today{border:2px solid var(--gold);color:var(--gold)}
+
+.horizon-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.hz-tab{padding:9px 2px;border-radius:9px;font-size:11px;font-weight:800;text-align:center;background:var(--inpbg);border:1px solid var(--border2);color:var(--t3);transition:all .2s}
+.hz-tab.act{background:var(--gold);color:#000;border-color:var(--gold)}
+.goal-card{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:13px;margin:0 14px 8px}
+.gspheres{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 12px}
+.gsphere{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:13px;cursor:pointer}
+.gsphere:active{transform:scale(.96)}
+
+.dev-health{display:flex;justify-content:space-around;align-items:center;padding:4px}
+.dev-h-item{text-align:center;cursor:pointer;flex:1}
+.dev-h-ico{font-size:26px}
+.dev-h-name{font-size:12px;font-weight:800;color:var(--gold);margin-top:3px}
+.dev-h-val{font-size:11px;color:var(--t2);margin-top:1px}
+.dev-divider{width:1px;height:44px;background:var(--border2)}
+.water-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0 4px}
+.wcup{width:30px;height:38px;border-radius:5px 5px 8px 8px;border:1.5px solid rgba(74,144,217,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;background:rgba(74,144,217,.05);font-size:15px}
+.wcup.filled{border-color:var(--blue);background:rgba(74,144,217,.16)}
+.wcup:active{transform:scale(.86)}
+
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px}
+.ac{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:11px 12px}
+.ac-lbl{font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--t3);font-weight:800;margin-bottom:4px}
+.ac-val{font-size:16px;font-weight:900;margin-bottom:2px}
+.ac-sub{font-size:9px;color:var(--t3)}
+.ai-msgs{flex:1;overflow-y:auto;padding:4px 14px 8px;display:flex;flex-direction:column;gap:9px}
+.ai-msgs::-webkit-scrollbar{display:none}
+.bubble{max-width:86%;animation:bubbleIn .22s cubic-bezier(.4,0,.2,1)}
+@keyframes bubbleIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.bubble.ai{align-self:flex-start}
+.bubble.me{align-self:flex-end}
+.bcontent{padding:11px 14px;border-radius:16px;font-size:13px;line-height:1.6}
+.bubble.ai .bcontent{background:var(--cardbg);border:1px solid var(--border2);border-bottom-left-radius:4px}
+.bubble.me .bcontent{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.07));border:1px solid rgba(201,168,76,.2);border-bottom-right-radius:4px}
+.btime{font-size:9px;color:var(--t4);margin-top:4px;padding:0 4px}
+.bubble.me .btime{text-align:right}
+.ai-bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(6,13,26,.98);border-top:1px solid var(--border2);flex-shrink:0}
+body.light .ai-bar{background:rgba(255,255,255,.98)}
+.ai-inp{flex:1;background:var(--inpbg);border:1px solid var(--border2);border-radius:24px;padding:11px 16px;font-size:13px;color:var(--t1)}
+.ai-inp::placeholder{color:var(--t4)}
+.ai-send{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),#9a6f28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;box-shadow:0 2px 10px rgba(201,168,76,.3)}
+.ai-send:active{transform:scale(.88)}
+.ai-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.aichip{background:var(--inpbg);border:1px solid var(--border2);border-radius:16px;padding:6px 11px;font-size:11px;font-weight:600;color:var(--t2)}
+.aichip:active{background:var(--gold-glow);color:var(--gold2)}
+.ai-typing{display:flex;align-items:center;gap:4px;padding:3px 0}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--t3);animation:bounce .9s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
+
+.profile-hero{padding:20px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.pavatar{width:74px;height:74px;background:linear-gradient(145deg,rgba(201,168,76,.26),rgba(201,168,76,.05));border:2px solid rgba(201,168,76,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:32px;color:var(--gold);box-shadow:0 0 26px rgba(201,168,76,.2)}
+.pname{font-size:20px;font-weight:900}
+.ptag{font-size:12px;color:var(--t3)}
+.streak-fire{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:var(--r2);padding:14px;margin:0 14px 10px;display:flex;align-items:center;gap:14px}
+.sfire{font-size:36px;animation:fire 1.4s ease-in-out infinite alternate;filter:drop-shadow(0 0 8px rgba(249,115,22,.5))}
+@keyframes fire{0%{transform:scale(1) rotate(-4deg)}100%{transform:scale(1.09) rotate(4deg)}}
+.sdays{font-size:20px;font-weight:900;color:var(--orange)}
+.pmenu-item{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid var(--border3);cursor:pointer;font-size:13px;font-weight:600}
+.pmenu-item:last-child{border:none}
+.pmenu-item:active{background:var(--inpbg)}
+.pmenu-arrow{color:var(--t3);font-size:16px}
+
+.achv-detail{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border3)}
+.achv-detail:last-child{border:none}
+.empty{text-align:center;padding:20px;color:var(--t3);font-size:12px}
+.backbtn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--gold);padding:10px 16px 2px}
+
+/* weather */
+.weather-chip{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(74,144,217,.14),rgba(74,144,217,.04));border:1px solid rgba(74,144,217,.22);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--blue)}
+.weather-ico{font-size:15px}
+/* ayah of day */
+.ayah-card{background:linear-gradient(135deg,rgba(46,204,113,.09),rgba(46,204,113,.02));border:1px solid rgba(46,204,113,.2);border-radius:var(--r);padding:16px;margin:0 14px 10px;position:relative;overflow:hidden}
+.ayah-ar{font-family:'Amiri',serif;font-size:21px;color:var(--green);text-align:right;line-height:1.9;margin-bottom:9px;direction:rtl}
+.ayah-tr{font-size:12px;color:var(--t2);line-height:1.6;font-style:italic}
+.ayah-ref{font-size:10px;color:var(--green);font-weight:800;margin-top:8px;text-transform:uppercase;letter-spacing:.5px}
+/* budget */
+.budget-card{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r);padding:16px;margin:0 14px 10px}
+.budget-warn{color:var(--red)}
+/* income/expense summary */
+.fin-sum{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px}
+.fin-sum-box{background:var(--cardbg);border:1px solid var(--border2);border-radius:var(--r2);padding:13px}
+.fin-sum-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.8px;font-weight:800;color:var(--t3);margin-bottom:3px}
+.fin-sum-val{font-size:18px;font-weight:900;letter-spacing:-.5px}
+/* ramadan */
+.ram-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.ram-cell{aspect-ratio:1;border-radius:11px;background:var(--inpbg);border:1.5px solid var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:13px;font-weight:800;color:var(--t3)}
+.ram-cell.fasted{background:rgba(201,168,76,.15);border-color:var(--gold);color:var(--gold)}
+.ram-cell.fasted::after{content:'🌙';font-size:10px}
+.ram-cell:active{transform:scale(.9)}
+/* pin */
+.cur-pick{flex:1;padding:8px 0;border-radius:9px;font-size:11px;font-weight:800;background:var(--inpbg);border:1px solid var(--border2);color:var(--t3);transition:all .2s}
+.cur-pick.on{background:var(--purple-dim);border-color:var(--purple);color:var(--purple)}
+.pin-screen{position:fixed;inset:0;z-index:800;background:var(--bg0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.pin-dots{display:flex;gap:14px}
+.pin-dot{width:15px;height:15px;border-radius:50%;border:2px solid var(--gold);transition:all .2s}
+.pin-dot.fill{background:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.5)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,72px);gap:14px}
+.pin-key{width:72px;height:72px;border-radius:50%;background:var(--inpbg);border:1px solid var(--border2);font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pin-key:active{background:var(--bg4);transform:scale(.92)}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div id="toast"></div>
+<script>
+/* ════════════ STATE ════════════ */
+var DEFAULT_STATE={
+  name:'Muminjon', city:'Коканд', theme:'dark', screen:'home', aiInited:false,
+  niyyah:'Сегодня я буду дисциплинирован ради Аллаха — выполню все намазы вовремя, прочту 5 аятов и закрою задачу по работе.',
+  prayers:{fajr:false,zuhr:false,asr:false,maghrib:false,isha:false},
+  prayerTimes:{fajr:'--:--',zuhr:'--:--',asr:'--:--',maghrib:'--:--',isha:'--:--'},
+  qada:0,
+  extra:{tahajjud:false,parents:false,sadaka:false},
+  zikr:[
+    {ar:'سُبْحَانَ اللهِ',name:'Субханаллах',count:0,target:1000,color:'#2ecc71'},
+    {ar:'اللّٰهُمَّ صَلِّ',name:'Салават',count:0,target:100,color:'#c9a84c'},
+    {ar:'اَلْحَمْدُ لِلّٰهِ',name:'Альхамдулилла',count:0,target:100,color:'#4a90d9'},
+    {ar:'اللهُ أَكْبَر',name:'Аллаху Акбар',count:0,target:100,color:'#8b5cf6'}
+  ],
+  quranToday:0, quranTotal:0, quranStreak:0, quranGoal:5,
+  tasbih:0, tasbihIdx:0,
+  water:0, waterTarget:15, sport:false, sleep:7.5, steps:6240,
+  skills:{uzb:false,ara:false,fin:false,ai:false},
+  tasks:[
+    {title:'Урок таджвида №8',meta:'09:00 · Харакаты',done:false,tag:'Дин',tc:'green'},
+    {title:'Завершить проект клиента',meta:'Дедлайн 18:00',done:false,tag:'Работа',tc:'gold'}
+  ],
+  balance:0, currency:'USD', history:[], debts:[],
+  customCats:{expense:[],income:[]},
+  goals:[
+    {id:1,horizon:'10years',category:'din',text:'Стать хафизом Корана',pct:18},
+    {id:2,horizon:'year',category:'fin',text:'Закрыть все долги',pct:47},
+    {id:3,horizon:'month',category:'din',text:'30 дней намазов вовремя',pct:78}
+  ],
+  achievements:[], historyByDate:{}, lastResetDate:'',
+  chat:[],
+  budget:0,
+  weather:null, ayah:null, ayahDay:'',
+  ramadan:{}, ramadanActive:false,
+  pin:'', pinOn:false,
+  rates:{USD:1,UZS:12650,RUB:92,TJS:10.95}, ratesUpdated:''
+};
+var S=JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+/* UI-only (not persisted) */
+var UI={ modal:null, aiTyping:false, calc:'0', txType:'expense',
+  histFilter:'all', balanceShown:true, horizon:'10years', debtCur:'UZS' };
+
+var EXP_CATS=[
+  {n:'Продукты',i:'🛒',c:'#fbbf24'},{n:'Кафе',i:'🍜',c:'#f43f5e'},
+  {n:'Транспорт',i:'🚕',c:'#eab308'},{n:'Связь',i:'📱',c:'#3b82f6'},
+  {n:'Жильё',i:'🏠',c:'#8b5cf6'},{n:'Одежда',i:'👕',c:'#ec4899'},
+  {n:'Здоровье',i:'💊',c:'#10b981'},{n:'Садака',i:'🤲',c:'#c9a84c'},
+  {n:'Развлечения',i:'🎮',c:'#f97316'}
+];
+var INC_CATS=[
+  {n:'Зарплата',i:'💵',c:'#10b981'},{n:'Бизнес',i:'💼',c:'#10b981'},
+  {n:'Фриланс',i:'💻',c:'#3b82f6'},{n:'Подарок',i:'🎁',c:'#ec4899'},
+  {n:'Инвестиции',i:'📈',c:'#fbbf24'},{n:'Продажа',i:'🏷️',c:'#f97316'},
+  {n:'Кэшбек',i:'💳',c:'#8b5cf6'},{n:'Другое',i:'📦',c:'#64748b'}
+];
+var KEY='deen_life_kokand_v4';
+
+/* ════════════ HELPERS ════════════ */
+function $(id){ return document.getElementById(id); }
+function pad(n){ return (n<10?'0':'')+n; }
+function hhmm(d){ return pad(d.getHours())+':'+pad(d.getMinutes()); }
+function fmt(n){ return Math.round(n).toLocaleString('ru-RU'); }
+function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function todayKey(){ var d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+var MN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+var DN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+
+function toast(msg){
+  var t=$('toast'); if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._tm); t._tm=setTimeout(function(){ t.classList.remove('show'); },2400);
+}
+function ring(pct,color,size,sw){
+  size=size||46; sw=sw||5;
+  var r=(size-sw)/2, c=2*Math.PI*r, off=c*(1-Math.max(0,Math.min(1,pct/100)));
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">'+
+    '<circle cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="'+sw+'"/>'+
+    '<circle cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="'+sw+'" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'" style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)"/>'+
+    '</svg>';
+}
+
+/* ════════════ PERSISTENCE ════════════ */
+function save(){
+  try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){}
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(raw){
+      var p=JSON.parse(raw);
+      for(var k in DEFAULT_STATE){ if(p[k]===undefined) p[k]=DEFAULT_STATE[k]; }
+      S=p;
+    }
+  }catch(e){}
+  checkDayReset();
+}
+function checkDayReset(){
+  var tk=todayKey();
+  if(S.lastResetDate!==tk){
+    if(S.lastResetDate){
+      S.historyByDate[S.lastResetDate]={score:lifeScore(),prayers:Object.assign({},S.prayers)};
+    }
+    S.prayers={fajr:false,zuhr:false,asr:false,maghrib:false,isha:false};
+    S.extra={tahajjud:false,parents:false,sadaka:false};
+    S.zikr.forEach(function(z){ z.count=0; });
+    S.quranToday=0; S.water=0; S.sport=false; S.qada=0; S.tasbih=0;
+    S.skills={uzb:false,ara:false,fin:false,ai:false};
+    S.tasks=S.tasks.filter(function(t){return !t.done;});
+    S.lastResetDate=tk;
+  }
+}
+
+/* ════════════ COMPUTATIONS ════════════ */
+function namazDone(){ var n=0; for(var k in S.prayers) if(S.prayers[k]) n++; return n; }
+function extraDone(){ var n=0; for(var k in S.extra) if(S.extra[k]) n++; return n; }
+function tasksDone(){ return S.tasks.filter(function(t){return t.done;}).length; }
+function skillsDone(){ var n=0; for(var k in S.skills) if(S.skills[k]) n++; return n; }
+function zikrTotal(){ return S.zikr.reduce(function(a,z){return a+z.count;},0); }
+function zikrMax(){ return S.zikr.reduce(function(a,z){return a+z.target;},0); }
+function discipline(){
+  var z=S.zikr[0]?Math.min(1,S.zikr[0].count/S.zikr[0].target):0;
+  var sv=S.zikr[1]?Math.min(1,S.zikr[1].count/S.zikr[1].target):0;
+  var w=Math.min(1,S.water/S.waterTarget);
+  var sp=S.sport?1:0;
+  return Math.round((z+sv+w+sp)/4*100);
+}
+function pctIbadat(){ return Math.round((namazDone()/5*0.7 + extraDone()/3*0.3)*100); }
+function pctTasks(){ return S.tasks.length?Math.round(tasksDone()/S.tasks.length*100):0; }
+function pctDev(){ return Math.round(skillsDone()/4*100); }
+function lifeScore(){
+  return Math.round((pctIbadat()*0.4 + pctTasks()*0.2 + pctDev()*0.15 + discipline()*0.25));
+}
+function convert(amount,from,to){
+  var r=S.rates||{USD:1,UZS:12650,RUB:92,TJS:10.95};
+  if(!r[from]||!r[to]) return amount;
+  return amount/r[from]*r[to];
+}
+function debtTotal(){
+  return S.debts.reduce(function(a,d){ return a+convert(d.amount,d.currency,UI.debtCur); },0);
+}
+function debtTotalUZS(){
+  return S.debts.reduce(function(a,d){ return a+convert(d.amount,d.currency,'UZS'); },0);
+}
+function cycleDebtCur(){
+  var cs=['UZS','USD','RUB','TJS']; var i=cs.indexOf(UI.debtCur);
+  UI.debtCur=cs[(i+1)%4];
+  toast('💱 Долг в '+UI.debtCur);
+  refresh();
+}
+function setDebtCur(c){ UI.debtCur=c; refresh(); }
+function fetchRates(){
+  fetch('https://open.er-api.com/v6/latest/USD')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d&&d.rates){
+      S.rates={USD:1,
+        UZS:d.rates.UZS||12650, RUB:d.rates.RUB||92, TJS:d.rates.TJS||10.95};
+      S.ratesUpdated=(d.time_last_update_utc||'').split(' ').slice(1,4).join(' ')||todayKey();
+      save();
+      if(S.screen==='finance') refresh();
+    }
+  }).catch(function(){});
+}
+function monthTx(){
+  var now=new Date(), m=now.getMonth(), y=now.getFullYear();
+  return S.history.filter(function(t){ var d=new Date(t.date); return d.getMonth()===m && d.getFullYear()===y; });
+}
+function nextPrayer(){
+  var order=[['fajr','Фаджр'],['zuhr','Зухр'],['asr','Аср'],['maghrib','Магриб'],['isha','Иша']];
+  var now=new Date(), cur=now.getHours()*60+now.getMinutes();
+  var best=null,bd=Infinity;
+  order.forEach(function(p){
+    var t=S.prayerTimes[p[0]]; if(!t||t==='--:--') return;
+    var pm=parseInt(t.split(':')[0])*60+parseInt(t.split(':')[1]);
+    var d=pm-cur; if(d<0) d+=1440;
+    if(d<bd){ bd=d; best={key:p[0],name:p[1],t:t,diff:d}; }
+  });
+  return best;
+}
+function cdText(min){ var h=Math.floor(min/60),m=min%60; return h>0?(h+'ч '+pad(m)+'м'):(m+' мин'); }
+
+/* ════════════ NAVIGATION ════════════ */
+function go(name){
+  S.screen=name;
+  if(name==='ai'&&!S.aiInited) aiInit();
+  renderApp();
+  if(name==='ai') scrollChatBottom();
+}
+function refresh(){
+  var sc=$('scroll'); var top=sc?sc.scrollTop:0;
+  renderApp();
+  var sc2=$('scroll'); if(sc2) sc2.scrollTop=top;
+}
+function openModal(m){ UI.modal=m; renderApp(); }
+function closeModal(){ UI.modal=null; renderApp(); }
+function commit(){ checkAchievements(); save(); refresh(); }
+
+/* ════════════ IBADAH ACTIONS ════════════ */
+function togglePrayer(k){
+  S.prayers[k]=!S.prayers[k];
+  toast(S.prayers[k]?'✅ '+k.toUpperCase()+' выполнен. Машааллах!':'↩️ Отмечено');
+  commit();
+}
+function addQada(){ S.qada++; toast('📿 Када отмечен: '+S.qada); commit(); }
+function toggleExtra(k){
+  S.extra[k]=!S.extra[k];
+  toast(S.extra[k]?'✅ Выполнено!':'↩️ Отмечено'); commit();
+}
+function tapZikr(i){
+  var z=S.zikr[i];
+  if(z.count<z.target) z.count++;
+  if(z.count===z.target) toast('🎉 '+z.name+' — цель достигнута!');
+  commit();
+}
+function changeTarget(i){
+  var v=parseInt(prompt('Новая цель для «'+S.zikr[i].name+'»:',S.zikr[i].target));
+  if(v&&v>0){ S.zikr[i].target=v; toast('🎯 Цель обновлена'); commit(); }
+}
+function addAyah(){
+  S.quranToday++; S.quranTotal++;
+  toast('📖 +1 аят. Барака Аллаху фик! ('+S.quranToday+' сегодня)'); commit();
+}
+function toggleSport(){
+  S.sport=!S.sport;
+  toast(S.sport?'🏋️ Тренировка отмечена!':'↩️ Отмечено'); commit();
+}
+function tapWater(){
+  if(S.water<S.waterTarget){ S.water++; toast('💧 '+S.water+'/'+S.waterTarget+' стаканов'); }
+  else { S.water=0; toast('↩️ Счётчик воды сброшен'); }
+  commit();
+}
+function toggleSkill(k){
+  S.skills[k]=!S.skills[k];
+  toast(S.skills[k]?'✅ Отмечено!':'↩️ Отмечено'); commit();
+}
+function toggleTask(i){
+  S.tasks[i].done=!S.tasks[i].done;
+  toast(S.tasks[i].done?'✅ Задача выполнена!':'↩️ Отмечено'); commit();
+}
+function delTask(i){ S.tasks.splice(i,1); toast('🗑️ Задача удалена'); commit(); }
+function addTaskGo(){
+  var t=($('taskTitle').value||'').trim();
+  var m=($('taskMeta').value||'').trim();
+  var tag=$('taskTag').value;
+  var tc={'Дин':'green','Коран':'blue','Работа':'gold','Спорт':'purple','Финансы':'gold','Семья':'red'}[tag]||'gold';
+  if(!t){ toast('⚠️ Введи название задачи'); return; }
+  S.tasks.push({title:t,meta:m||'Сегодня',done:false,tag:tag,tc:tc});
+  toast('✅ Задача добавлена'); UI.modal=null; commit();
+}
+
+/* ════════════ TASBIH ════════════ */
+function tasbihTap(){
+  S.tasbih++;
+  if(navigator.vibrate) try{navigator.vibrate(14);}catch(e){}
+  if(S.tasbih%33===0) toast('📿 '+S.tasbih+' — круг завершён!');
+  save(); refresh();
+}
+function tasbihReset(){ S.tasbih=0; toast('↩️ Счётчик сброшен'); save(); refresh(); }
+function tasbihSave(){
+  var z=S.zikr[S.tasbihIdx];
+  z.count=Math.min(z.target,z.count+S.tasbih);
+  toast('✅ +'+S.tasbih+' засчитано в «'+z.name+'»');
+  S.tasbih=0; checkAchievements(); save(); go('quran');
+}
+function setTasbihIdx(i){ S.tasbihIdx=parseInt(i); save(); refresh(); }
+
+/* ════════════ NIYYAH ════════════ */
+function saveNiyyah(){
+  var v=($('niyyahInput').value||'').trim();
+  if(v){ S.niyyah=v; toast('✦ Намерение обновлено'); }
+  UI.modal=null; save(); refresh();
+}
+
+/* ════════════ FINANCE ════════════ */
+function allCats(type){
+  var base=type==='expense'?EXP_CATS:INC_CATS;
+  return base.concat(S.customCats[type]||[]);
+}
+function switchFinTab(t){ UI.txType=t; UI.calc='0'; refresh(); }
+function appendCalc(d){
+  if(UI.calc==='0'&&d!=='.') UI.calc='';
+  if(d==='.'&&UI.calc.indexOf('.')>=0) return;
+  if(UI.calc.replace('.','').length>=11) return;
+  UI.calc+=d;
+  var el=$('calcVal'); if(el) el.textContent=UI.calc;
+}
+function delCalc(){
+  UI.calc=UI.calc.slice(0,-1)||'0';
+  var el=$('calcVal'); if(el) el.textContent=UI.calc;
+}
+function clearCalc(){
+  UI.calc='0'; var el=$('calcVal'); if(el) el.textContent='0';
+}
+function switchCurrency(){
+  var cs=['USD','UZS','RUB','TJS']; var i=cs.indexOf(S.currency);
+  S.currency=cs[(i+1)%cs.length]; save(); refresh();
+}
+function selectCat(i){ UI._selCat=i; refresh(); }
+function submitCalc(){
+  var v=parseFloat(UI.calc)||0;
+  if(v<=0){ toast('⚠️ Введи сумму'); return; }
+  var cats=allCats(UI.txType);
+  var ci=(UI._selCat!=null&&cats[UI._selCat])?UI._selCat:0;
+  var c=cats[ci]||{n:'Другое',i:'📦',c:'#64748b'};
+  if(UI.txType==='expense') S.balance-=v; else S.balance+=v;
+  S.history.unshift({id:Date.now(),type:UI.txType,amount:v,currency:S.currency,
+    cat:c.n,icon:c.i,color:c.c,date:todayKey()});
+  UI.calc='0'; UI._selCat=null;
+  toast(UI.txType==='income'?'✅ Доход +'+fmt(v):'✅ Расход −'+fmt(v));
+  commit();
+}
+function addCustomCat(){
+  var n=prompt('Название категории:'); if(!n) return;
+  var i=prompt('Эмодзи:','📦')||'📦';
+  S.customCats[UI.txType].push({n:n,i:i,c:'#8b5cf6'});
+  toast('➕ Категория добавлена'); save(); refresh();
+}
+function filterHistory(f){ UI.histFilter=f; refresh(); }
+function toggleBalance(){ UI.balanceShown=!UI.balanceShown; refresh(); }
+function delTx(i){
+  if(!confirm('Удалить операцию?')) return;
+  var tx=S.history[i]; if(!tx) return;
+  if(tx.type==='expense') S.balance+=tx.amount; else S.balance-=tx.amount;
+  S.history.splice(i,1); toast('🗑️ Операция удалена'); commit();
+}
+function addDebtGo(){
+  var n=($('debtName').value||'').trim();
+  var a=parseFloat($('debtAmount').value)||0;
+  var c=$('debtCurrency').value;
+  if(!n||a<=0){ toast('⚠️ Заполни данные'); return; }
+  S.debts.push({id:Date.now(),name:n,amount:a,currency:c,date:todayKey()});
+  toast('📉 Долг добавлен'); UI.modal=null; commit();
+}
+function editDebt(id,plus){
+  var d=S.debts.filter(function(x){return x.id===id;})[0]; if(!d) return;
+  var v=parseFloat(prompt((plus?'Увеличить':'Погасить')+' долг на сумму:'))||0;
+  if(v<=0) return;
+  d.amount+=plus?v:-v;
+  if(d.amount<=0){ S.debts=S.debts.filter(function(x){return x.id!==id;}); toast('🎉 Долг закрыт! Альхамдулилла!'); }
+  else toast(plus?'Долг увеличен':'Долг уменьшен');
+  commit();
+}
+
+/* ════════════ GOALS ════════════ */
+function selectHorizon(h){ UI.horizon=h; refresh(); }
+function addGoalGo(){
+  var t=($('goalText').value||'').trim();
+  var c=$('goalCat').value;
+  if(!t){ toast('⚠️ Введи текст цели'); return; }
+  if(UI.horizon==='day'){
+    S.tasks.push({title:t,meta:'Сегодня',done:false,tag:'Цель',tc:'gold'});
+    toast('✅ Добавлено в задачи дня');
+  } else {
+    S.goals.push({id:Date.now(),horizon:UI.horizon,category:c,text:t,pct:0});
+    toast('🎯 Цель добавлена. Бисмилля!');
+  }
+  UI.modal=null; commit();
+}
+function goalProgress(id){
+  var g=S.goals.filter(function(x){return x.id===id;})[0]; if(!g) return;
+  g.pct=Math.min(100,g.pct+Math.floor(Math.random()*5+3));
+  toast('🎯 Прогресс цели обновлён!'); commit();
+}
+function delGoal(id){ S.goals=S.goals.filter(function(x){return x.id!==id;}); toast('🗑️ Цель удалена'); commit(); }
+
+/* ════════════ ACHIEVEMENTS ════════════ */
+var BADGES=[
+  {id:'first_prayer',icon:'🕌',name:'Первый намаз',desc:'Отметить первый намаз дня'},
+  {id:'all_prayers',icon:'🌟',name:'5 намазов',desc:'Все 5 намазов за день'},
+  {id:'zikr_1000',icon:'📿',name:'1000 зикров',desc:'Достичь 1000 в счётчике зикра'},
+  {id:'water_full',icon:'💧',name:'Водный баланс',desc:'Выпить норму воды'},
+  {id:'streak_7',icon:'🔥',name:'7 дней',desc:'Серия 7 дней дисциплины'},
+  {id:'sadaka',icon:'🪙',name:'Садака',desc:'Отметить садаку'},
+  {id:'tahajjud',icon:'🌙',name:'Тахаджуд',desc:'Совершить ночной намаз'},
+  {id:'quran_50',icon:'📖',name:'Чтец',desc:'Прочитать 50 аятов всего'},
+  {id:'debt_free',icon:'🎉',name:'Без долгов',desc:'Закрыть все долги'}
+];
+function checkAchievements(){
+  var add=[];
+  function has(id){ return S.achievements.indexOf(id)>=0; }
+  if(namazDone()>0&&!has('first_prayer')) add.push('first_prayer');
+  if(namazDone()===5&&!has('all_prayers')) add.push('all_prayers');
+  if(S.zikr[0]&&S.zikr[0].count>=1000&&!has('zikr_1000')) add.push('zikr_1000');
+  if(S.water>=S.waterTarget&&!has('water_full')) add.push('water_full');
+  if(S.extra.sadaka&&!has('sadaka')) add.push('sadaka');
+  if(S.extra.tahajjud&&!has('tahajjud')) add.push('tahajjud');
+  if(S.quranTotal>=50&&!has('quran_50')) add.push('quran_50');
+  if(S.debts.length===0&&S.history.length>0&&!has('debt_free')) add.push('debt_free');
+  var dates=Object.keys(S.historyByDate).sort().slice(-7);
+  if(dates.length>=7&&dates.every(function(d){return (S.historyByDate[d].score||0)>=50;})&&!has('streak_7'))
+    add.push('streak_7');
+  if(add.length){
+    S.achievements=S.achievements.concat(add);
+    add.forEach(function(id){
+      var b=BADGES.filter(function(x){return x.id===id;})[0];
+      if(b) setTimeout(function(){ toast('🏆 Достижение: '+b.name+'!'); },300);
+    });
+  }
+}
+
+/* ════════════ THEME & DATA ════════════ */
+function toggleTheme(){
+  S.theme=S.theme==='dark'?'light':'dark';
+  applyTheme(); save(); toast(S.theme==='dark'?'🌙 Тёмная тема':'☀️ Светлая тема');
+}
+function applyTheme(){ document.body.classList.toggle('light',S.theme==='light'); }
+function exportData(){
+  try{
+    var blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url; a.download='deen_life_backup_'+todayKey()+'.json';
+    a.click(); URL.revokeObjectURL(url);
+    toast('📥 Данные экспортированы');
+  }catch(e){ toast('❌ Ошибка экспорта'); }
+}
+function importData(){
+  var inp=document.createElement('input');
+  inp.type='file'; inp.accept='.json';
+  inp.onchange=function(e){
+    var f=e.target.files[0]; if(!f) return;
+    var r=new FileReader();
+    r.onload=function(ev){
+      try{
+        var d=JSON.parse(ev.target.result);
+        for(var k in DEFAULT_STATE){ if(d[k]===undefined) d[k]=DEFAULT_STATE[k]; }
+        S=d; applyTheme(); save(); renderApp();
+        toast('📤 Данные импортированы');
+      }catch(er){ toast('❌ Ошибка чтения файла'); }
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+
+/* ════════════ PRAYER TIMES API (Kokand) ════════════ */
+function fetchPrayerTimes(){
+  var d=new Date();
+  var ds=d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();
+  fetch('https://api.aladhan.com/v1/timings/'+ds+'?latitude=40.55&longitude=72.03&method=2')
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data&&data.code===200){
+      var t=data.data.timings;
+      S.prayerTimes={
+        fajr:t.Fajr.substring(0,5), zuhr:t.Dhuhr.substring(0,5),
+        asr:t.Asr.substring(0,5), maghrib:t.Maghrib.substring(0,5),
+        isha:t.Isha.substring(0,5)
+      };
+      save();
+      if(S.screen==='home'||S.screen==='ibadah') refresh();
+    }
+  })
+  .catch(function(){
+    if(S.prayerTimes.fajr==='--:--'){
+      S.prayerTimes={fajr:'03:18',zuhr:'12:12',asr:'16:08',maghrib:'19:32',isha:'21:15'};
+      if(S.screen==='home'||S.screen==='ibadah') refresh();
+    }
+  });
+}
+var HIJRI_MONTHS=['Мухаррам','Сафар','Раби-уль-авваль','Раби-уль-ахир',
+  'Джумада-уль-уля','Джумада-уль-ахира','Раджаб','Шаабан','Рамадан',
+  'Шавваль','Зуль-каада','Зуль-хиджа'];
+function hijriDate(){
+  try{
+    var d=new Date();
+    /* В исламском календаре новый день начинается с заходом солнца (Магриб).
+       После Магриба — это уже следующий лунный день. */
+    var mg=(S.prayerTimes&&S.prayerTimes.maghrib)||'';
+    if(mg&&mg!=='--:--'){
+      var mp=mg.split(':');
+      var mgMin=parseInt(mp[0],10)*60+parseInt(mp[1],10);
+      var nowMin=d.getHours()*60+d.getMinutes();
+      if(nowMin>=mgMin) d=new Date(d.getTime()+86400000);
+    }
+    var f=new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura',
+      {day:'numeric',month:'numeric',year:'numeric'});
+    var day='',mon=0,year='';
+    f.formatToParts(d).forEach(function(p){
+      if(p.type==='day') day=p.value;
+      else if(p.type==='month') mon=parseInt(p.value,10);
+      else if(p.type==='year') year=p.value;
+    });
+    if(mon>=1&&mon<=12) return day+' '+HIJRI_MONTHS[mon-1]+' '+year+' г.х.';
+    return '6 Зуль-хиджа 1447 г.х.';
+  }catch(e){ return '6 Зуль-хиджа 1447 г.х.'; }
+}
+
+/* ════════════ NEW: DATE / WEATHER / AYAH ════════════ */
+function prettyDate(ds){
+  var t=todayKey();
+  var y=new Date(); y.setDate(y.getDate()-1);
+  var yk=y.getFullYear()+'-'+pad(y.getMonth()+1)+'-'+pad(y.getDate());
+  if(ds===t) return 'Сегодня';
+  if(ds===yk) return 'Вчера';
+  var p=ds.split('-');
+  return parseInt(p[2],10)+' '+MN[parseInt(p[1],10)-1];
+}
+function weatherEmoji(code){
+  if(code===0) return '☀️';
+  if(code<=3) return '⛅';
+  if(code<=48) return '🌫️';
+  if(code<=67) return '🌧️';
+  if(code<=77) return '🌨️';
+  if(code<=82) return '🌦️';
+  if(code<=99) return '⛈️';
+  return '🌤️';
+}
+function fetchWeather(){
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=40.55&longitude=72.03&current=temperature_2m,weather_code')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d&&d.current){
+      S.weather={temp:Math.round(d.current.temperature_2m),code:d.current.weather_code};
+      save(); if(S.screen==='home') refresh();
+    }
+  }).catch(function(){});
+}
+function fetchAyah(){
+  var tk=todayKey();
+  if(S.ayah&&S.ayahDay===tk){ return; }
+  var doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/86400000);
+  var num=(doy*37)%6236+1;
+  fetch('https://api.alquran.cloud/v1/ayah/'+num+'/editions/quran-uthmani,ru.kuliev')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d&&d.data&&d.data.length>=2){
+      S.ayah={ar:d.data[0].text,tr:d.data[1].text,
+        ref:d.data[1].surah.name+' · '+d.data[1].numberInSurah};
+      S.ayahDay=tk; save();
+      if(S.screen==='quran') refresh();
+    }
+  }).catch(function(){});
+}
+
+/* ════════════ NEW: BUDGET ════════════ */
+function setBudget(){
+  var v=prompt('Месячный бюджет расходов ('+S.currency+'):',S.budget||'');
+  if(v===null) return;
+  v=parseFloat(String(v).replace(/\s/g,'').replace(',','.'))||0;
+  S.budget=v;
+  toast(v>0?'💰 Бюджет: '+fmt(v)+' '+S.currency:'Бюджет отключён');
+  commit();
+}
+
+/* ════════════ NEW: EDIT TRANSACTION ════════════ */
+function editTx(i){
+  var tx=S.history[i]; if(!tx) return;
+  var v=prompt('Изменить сумму «'+tx.cat+'» (пусто = удалить):',tx.amount);
+  if(v===null) return;
+  if(v.trim()===''){ delTx(i); return; }
+  v=parseFloat(String(v).replace(/\s/g,'').replace(',','.'));
+  if(isNaN(v)||v<=0){ toast('⚠️ Неверная сумма'); return; }
+  if(tx.type==='expense') S.balance+=(tx.amount-v);
+  else S.balance+=(v-tx.amount);
+  tx.amount=v; toast('✏️ Сумма изменена'); commit();
+}
+
+/* ════════════ NEW: RAMADAN ════════════ */
+function toggleRamadan(day){
+  S.ramadan[day]=!S.ramadan[day];
+  toast(S.ramadan[day]?'🌙 День '+day+' — пост отмечен!':'↩️ Отмечено');
+  commit();
+}
+function ramadanCount(){
+  var n=0; for(var k in S.ramadan){ if(S.ramadan[k]) n++; } return n;
+}
+
+/* ════════════ NEW: PIN LOCK ════════════ */
+var pinInput='';
+function setupPin(){
+  var p=prompt('Задай 4-значный PIN-код (пусто = выключить):',S.pin||'');
+  if(p===null) return;
+  if(p.trim()===''){ S.pin=''; S.pinOn=false; toast('🔓 PIN выключен'); save(); refresh(); return; }
+  if(!/^\d{4}$/.test(p)){ toast('⚠️ Нужно ровно 4 цифры'); return; }
+  S.pin=p; S.pinOn=true; toast('🔒 PIN установлен'); save(); refresh();
+}
+function pinPress(d){
+  if(pinInput.length>=4) return;
+  pinInput+=d;
+  var dots=document.querySelectorAll('.pin-dot');
+  dots.forEach(function(el,i){ el.classList.toggle('fill',i<pinInput.length); });
+  if(navigator.vibrate) try{navigator.vibrate(12);}catch(e){}
+  if(pinInput.length===4){
+    setTimeout(function(){
+      if(pinInput===S.pin){
+        var ps=$('pinScreen'); if(ps) ps.remove();
+      } else {
+        pinInput='';
+        var dd=document.querySelectorAll('.pin-dot');
+        dd.forEach(function(el){ el.classList.remove('fill'); });
+        toast('❌ Неверный PIN');
+      }
+    },150);
+  }
+}
+function pinDel(){
+  pinInput=pinInput.slice(0,-1);
+  var dots=document.querySelectorAll('.pin-dot');
+  dots.forEach(function(el,i){ el.classList.toggle('fill',i<pinInput.length); });
+}
+function showPinLock(){
+  if(!S.pinOn||!S.pin) return;
+  pinInput='';
+  var keys='';
+  [1,2,3,4,5,6,7,8,9].forEach(function(n){
+    keys+='<div class="pin-key" onclick="pinPress(\''+n+'\')">'+n+'</div>';
+  });
+  keys+='<div class="pin-key" style="font-size:14px;color:var(--t3)" onclick="pinDel()">⌫</div>';
+  keys+='<div class="pin-key" onclick="pinPress(\'0\')">0</div>';
+  keys+='<div></div>';
+  var html='<div class="pin-screen" id="pinScreen">'+
+    '<div style="font-size:40px">🔒</div>'+
+    '<div style="font-size:16px;font-weight:800">Введите PIN-код</div>'+
+    '<div class="pin-dots"><div class="pin-dot"></div><div class="pin-dot"></div>'+
+    '<div class="pin-dot"></div><div class="pin-dot"></div></div>'+
+    '<div class="pin-pad">'+keys+'</div></div>';
+  document.body.insertAdjacentHTML('beforeend',html);
+}
+
+/* ════════════ UI PIECES ════════════ */
+function greetText(){
+  var h=new Date().getHours();
+  if(h>=5&&h<12) return 'Доброе утро ☀️';
+  if(h>=12&&h<17) return 'Добрый день 🌤';
+  if(h>=17&&h<22) return 'Добрый вечер 🌅';
+  return 'Доброй ночи 🌙';
+}
+function statusBar(){
+  return '<div class="statusbar"><span class="stime">'+hhmm(new Date())+'</span>'+
+    '<span class="sstatus">📍 '+S.city+' &nbsp;·&nbsp; 🔋 87%</span></div>';
+}
+function bottomNav(){
+  var tabs=[['home','🏠','Главная'],['ibadah','🤲','Ибодат'],['finance','💰','Финансы']];
+  var tabs2=[['dev','🧠','Развитие'],['goals','🎯','Цели'],['stats','📊','Стат']];
+  function it(t){
+    return '<div class="bitem'+(S.screen===t[0]?' on':'')+'" onclick="go(\''+t[0]+'\')">'+
+      '<div class="bicon">'+t[1]+'</div><div class="blabel">'+t[2]+'</div></div>';
+  }
+  return '<div class="bnav"><div class="brow">'+
+    tabs.map(it).join('')+
+    '<div class="bcenter'+(S.screen==='ai'?' on':'')+'" onclick="go(\'ai\')">🤖</div>'+
+    tabs2.map(it).join('')+'</div></div>';
+}
+function back(){ return '<div class="backbtn" onclick="go(\'home\')">‹ На главную</div>'; }
+function hzName(h){ return {'10years':'10 лет','year':'год','month':'месяц','day':'день'}[h]||h; }
+
+/* ════════════ HOME ════════════ */
+function scrHome(){
+  var now=new Date();
+  var greg=now.getDate()+' '+MN[now.getMonth()]+' '+now.getFullYear()+', '+DN[now.getDay()];
+  var np=nextPrayer();
+  var score=lifeScore();
+  var nd=namazDone(), td=tasksDone();
+
+  var npHtml='';
+  if(np){
+    var urgent=np.diff<=20;
+    npHtml='<div class="prayer-now'+(urgent?' urgent':'')+'" onclick="go(\'ibadah\')">'+
+      '<div><div class="pn-label">Следующий намаз</div>'+
+      '<div class="pn-name" style="color:'+(urgent?'var(--red)':'var(--green)')+'">'+np.name+'</div>'+
+      '<div class="pn-time">в '+np.t+'</div></div>'+
+      '<div><div class="pn-cd" style="color:'+(urgent?'var(--red)':'var(--green)')+'" id="pncd">'+cdText(np.diff)+'</div>'+
+      '<div class="pn-sub">осталось</div></div></div>';
+  }
+
+  var keys=['fajr','zuhr','asr','maghrib','isha'];
+  var pnames={fajr:['Фаджр','☀️'],zuhr:['Зухр','💎'],asr:['Аср','🌤'],maghrib:['Магриб','🌅'],isha:['Иша','🌙']};
+  var nidx=keys.findIndex(function(k){return !S.prayers[k];});
+  var namazRow=keys.map(function(k,i){
+    var done=S.prayers[k];
+    var cls=done?'nc-done':(i===nidx?'nc-next':'nc-pend');
+    var mark=done?'✓':(i===nidx?'🕐':'·');
+    return '<div class="nitem"><div class="ncircle '+cls+'" onclick="togglePrayer(\''+k+'\')">'+
+      '<div class="nc-ico">'+pnames[k][1]+'</div><div class="nc-mark">'+mark+'</div></div>'+
+      '<div class="nname">'+pnames[k][0]+'</div><div class="ntime">'+S.prayerTimes[k]+'</div></div>';
+  }).join('');
+
+  var rings=
+    rcard('ibadah', nd/5*100, '#c9a84c', nd+'/5', 'Намаз')+
+    rcard('quran', zikrTotal()/zikrMax()*100, '#2ecc71', zikrTotal()+'', 'Зикр')+
+    rcard('dev', S.water/S.waterTarget*100, '#4a90d9', S.water+'/'+S.waterTarget, 'Вода')+
+    rcard('home', S.tasks.length?td/S.tasks.length*100:0, '#8b5cf6', td+'/'+S.tasks.length, 'Задачи');
+
+  var dash=
+    '<div class="dash-box"><div class="dash-name">Ибадат</div><div class="dash-pct" style="color:var(--gold)">'+pctIbadat()+'%</div></div>'+
+    '<div class="dash-box"><div class="dash-name">Задачи</div><div class="dash-pct" style="color:var(--purple)">'+pctTasks()+'%</div></div>'+
+    '<div class="dash-box"><div class="dash-name">Развитие</div><div class="dash-pct" style="color:var(--blue)">'+pctDev()+'%</div></div>'+
+    '<div class="dash-box"><div class="dash-name">Дисциплина</div><div class="dash-pct" style="color:var(--green)">'+discipline()+'%</div></div>';
+
+  var qa=
+    '<div class="qaitem" onclick="go(\'quran\')"><div class="qaico" style="background:linear-gradient(135deg,#142536,#0a1727)">📖</div><div class="qalbl">Коран</div></div>'+
+    '<div class="qaitem" onclick="go(\'tasbih\')"><div class="qaico" style="background:linear-gradient(135deg,#16331f,#0c1d12)">📿</div><div class="qalbl">Тасбих</div></div>'+
+    '<div class="qaitem" onclick="go(\'dev\')"><div class="qaico" style="background:linear-gradient(135deg,#0d2238,#081626)">🧠</div><div class="qalbl">Развитие</div></div>'+
+    '<div class="qaitem" onclick="go(\'profile\')"><div class="qaico" style="background:linear-gradient(135deg,#2a1d0c,#170f06)">👤</div><div class="qalbl">Профиль</div></div>';
+
+  var achv=BADGES.map(function(b){
+    return '<div class="achv-badge'+(S.achievements.indexOf(b.id)>=0?' earned':'')+'" title="'+b.name+'">'+b.icon+'</div>';
+  }).join('');
+
+  var tasksHtml=S.tasks.length? S.tasks.map(function(t,i){
+    return '<div class="task-item">'+
+      '<div class="check'+(t.done?' done':'')+'" onclick="toggleTask('+i+')">'+(t.done?'✓':'')+'</div>'+
+      '<div class="task-body" onclick="toggleTask('+i+')"><div class="task-title'+(t.done?' done':'')+'">'+esc(t.title)+'</div>'+
+      '<div class="task-meta">'+esc(t.meta)+'</div></div>'+
+      '<span class="badge '+t.tc+'">'+t.tag+'</span>'+
+      '<span class="task-del" onclick="delTask('+i+')">✕</span></div>';
+  }).join('') : '<div class="empty">Задач нет — добавь первую</div>';
+
+  var income=monthTx().filter(function(t){return t.type==='income';}).reduce(function(a,t){return a+t.amount;},0);
+  var expense=monthTx().filter(function(t){return t.type==='expense';}).reduce(function(a,t){return a+t.amount;},0);
+
+  var g0=S.goals[0];
+  var aiTip=score<40?'Начни день с намаза — это фундамент. Маленький шаг сейчас меняет весь день.':
+    score<70?'Хороший темп, Машааллах. Закрой пробелы в задачах и зикре до вечера.':
+    'Отлично! Ты на пути к совершенству. Не сбавляй — ИншаАллах баракят в делах.';
+
+  return ''+
+  '<div class="hero">'+
+    '<div class="hero-top">'+
+      '<div><div class="greet-line">'+greetText()+'</div>'+
+      '<div class="ar-greeting">السَّلَامُ عَلَيْكُمْ</div>'+
+      '<div class="main-name">Ассалому алайкум,<br><span>'+esc(S.name)+'</span></div></div>'+
+      '<div class="hero-right"><div class="live-time" id="liveTime">'+hhmm(now)+'</div>'+
+      '<div class="live-sec" id="liveSec">'+pad(now.getSeconds())+' сек</div>'+
+      '<div class="moon" style="margin-top:6px">☽</div></div>'+
+    '</div>'+
+    '<div class="dates"><div class="dchip">📅 '+greg+'</div>'+
+    '<div class="dchip hijri" id="hijriChip">🕌 '+hijriDate()+'</div>'+
+    (S.weather?'<div class="weather-chip"><span class="weather-ico">'+weatherEmoji(S.weather.code)+'</span>'+S.weather.temp+'° '+S.city+'</div>':'')+
+    '</div>'+
+    '<div class="mosque-bg"></div>'+
+  '</div>'+
+  '<div class="toolbar">'+
+    '<div class="tool-btn" onclick="toggleTheme()">🌓 Тема</div>'+
+    '<div class="tool-btn" onclick="exportData()">📥 Экспорт</div>'+
+    '<div class="tool-btn" onclick="importData()">📤 Импорт</div>'+
+    '<div class="tool-btn" onclick="go(\'profile\')">👤 Профиль</div>'+
+  '</div>'+
+  npHtml+
+  '<div class="niyyah" onclick="openModal(\'niyyah\')">'+
+    '<div class="niyyah-bism">﷽</div>'+
+    '<div class="niyyah-lbl">✦ Намерение дня · нажми чтобы изменить</div>'+
+    '<div class="niyyah-txt">'+esc(S.niyyah)+'</div>'+
+  '</div>'+
+  '<div class="dual-row">'+
+    '<div class="card" style="margin:0;padding:14px">'+
+      '<div style="font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Прогресс дня</div>'+
+      '<div style="font-size:22px;font-weight:900;color:var(--green);margin:2px 0 4px">'+score+'%</div>'+
+      '<div class="pbar h6"><div class="pfill green" style="width:'+score+'%"></div></div>'+
+      '<div style="font-size:9px;color:var(--t3);margin-top:6px">Система активна 🚀</div>'+
+    '</div>'+
+    '<div class="card" style="margin:0;padding:14px;text-align:center">'+
+      '<div style="font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Life Score</div>'+
+      '<div class="score-circle">'+ring(score,'#c9a84c',74,8)+
+      '<div class="score-val" style="color:var(--gold)">'+score+'</div></div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="ai-tip">'+
+    '<div class="ai-tip-lbl">✨ ИИ-Наставник · анализ паттернов</div>'+
+    '<div class="ai-tip-txt">'+aiTip+'</div>'+
+  '</div>'+
+  '<div class="sectlabel">🏆 Достижения</div>'+
+  '<div class="achv-row">'+achv+'</div>'+
+  '<div class="card">'+
+    '<div class="row between"><span class="clabel gold" style="margin:0">🕌 Намазы — '+S.city+'</span>'+
+    '<span class="badge green">'+nd+' из 5</span></div>'+
+    '<div class="namaz-row">'+namazRow+'</div>'+
+    '<div style="text-align:center;margin-top:12px">'+
+    '<button class="btn sm red-b" onclick="addQada()">📿 + Када</button>'+
+    '<span style="font-size:10px;color:var(--t3);margin-left:8px">Када: '+S.qada+'</span></div>'+
+  '</div>'+
+  '<div class="rings-row">'+rings+'</div>'+
+  '<div class="sectlabel">📊 Результаты дня</div>'+
+  '<div class="dash-grid">'+dash+'</div>'+
+  '<div class="sectlabel">⚡ Быстрый доступ</div>'+
+  '<div class="qa-row">'+qa+'</div>'+
+  '<div class="card">'+
+    '<div class="row between" style="margin-bottom:8px">'+
+    '<span style="font-size:12px;font-weight:800">✅ Задачи дня</span>'+
+    '<span style="font-size:11px;color:var(--gold);font-weight:800" onclick="openModal(\'addtask\')">+ Добавить</span></div>'+
+    tasksHtml+
+  '</div>'+
+  '<div class="card gold-b tap" onclick="go(\'finance\')">'+
+    '<div class="clabel gold" style="margin-bottom:4px">💰 Финансы за месяц</div>'+
+    '<div style="font-size:26px;font-weight:900;color:var(--gold)">'+fmt(S.balance)+' <span style="font-size:13px">'+S.currency+'</span></div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px">'+
+      '<div style="text-align:center"><div style="font-size:12px;font-weight:900;color:var(--green)">+'+fmt(income)+'</div><div style="font-size:9px;color:var(--t3)">Доход</div></div>'+
+      '<div style="text-align:center"><div style="font-size:12px;font-weight:900;color:var(--red)">−'+fmt(expense)+'</div><div style="font-size:9px;color:var(--t3)">Расход</div></div>'+
+      '<div style="text-align:center"><div style="font-size:12px;font-weight:900;color:var(--purple)">'+S.debts.length+'</div><div style="font-size:9px;color:var(--t3)">Долгов</div></div>'+
+    '</div>'+
+  '</div>'+
+  (g0?'<div class="card blue-b tap" onclick="go(\'goals\')">'+
+    '<div class="clabel blue" style="margin-bottom:6px">🎯 Главная цель</div>'+
+    '<div style="font-size:14px;font-weight:800;margin-bottom:6px">'+esc(g0.text)+'</div>'+
+    '<div class="pbar h6"><div class="pfill blue" style="width:'+g0.pct+'%"></div></div>'+
+    '<div style="font-size:10px;color:var(--t3);margin-top:5px">'+g0.pct+'% · горизонт: '+hzName(g0.horizon)+'</div>'+
+  '</div>':'')+
+  '<div class="card purple-b tap" onclick="go(\'ai\')" style="background:linear-gradient(135deg,#0e1528,#141b2d)">'+
+    '<div class="row" style="margin-bottom:9px">'+
+    '<div style="width:34px;height:34px;background:linear-gradient(135deg,var(--purple),#6d28d9);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px">🤖</div>'+
+    '<div><div style="font-size:12px;font-weight:900;color:var(--purple)">Nuur AI · на Claude</div>'+
+    '<div style="font-size:9px;color:var(--t3)">Спроси совета — я знаю твой день</div></div></div>'+
+    '<div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:11px;font-size:12px;line-height:1.6">'+
+    'Машааллах! Прогресс <strong style="color:var(--green)">'+score+'%</strong>. Нажми для полного разбора 🤖</div>'+
+  '</div>';
+}
+function rcard(scr,pct,color,val,lbl){
+  return '<div class="rcard" onclick="go(\''+scr+'\')">'+
+    '<div class="rsvg">'+ring(pct,color,46,5)+
+    '<div class="rval" style="color:'+color+'">'+val+'</div></div>'+
+    '<div class="rlbl">'+lbl+'</div></div>';
+}
+
+/* ════════════ IBADAH ════════════ */
+function scrIbadah(){
+  var an={ar:'الرَّحِيمُ',lat:'Ар-Рахим',mean:'Милостивый — Тот, чья милость объемлет верующих'};
+  var pct=Math.round((namazDone()/5*0.7+extraDone()/3*0.3)*100);
+  var pnames={fajr:['Фаджр','☀️'],zuhr:['Зухр','💎'],asr:['Аср','🌤'],maghrib:['Магриб','🌅'],isha:['Иша','🌙']};
+  var keys=['fajr','zuhr','asr','maghrib','isha'];
+  var nidx=keys.findIndex(function(k){return !S.prayers[k];});
+  var prayers=keys.map(function(k,i){
+    var done=S.prayers[k];
+    return '<div class="iitem '+(done?'done':'')+'">'+
+      '<div class="iicon">'+pnames[k][1]+'</div>'+
+      '<div class="iinfo" onclick="togglePrayer(\''+k+'\')"><div class="iname">'+pnames[k][0]+' намаз</div>'+
+      '<div class="isub">'+S.prayerTimes[k]+(i===nidx?' · следующий':'')+'</div></div>'+
+      '<div class="icheck" onclick="togglePrayer(\''+k+'\')">'+(done?'✓':'')+'</div></div>';
+  }).join('');
+  var extras=[['tahajjud','🌙','Намаз Тахаджуд','Ночное дуа'],
+    ['parents','🧓','Благо родителям','Звонок, забота'],
+    ['sadaka','🪙','Садака','Очищение заработка']];
+  var extraHtml=extras.map(function(e){
+    var done=S.extra[e[0]];
+    return '<div class="iitem '+(done?'done':'')+'">'+
+      '<div class="iicon">'+e[1]+'</div>'+
+      '<div class="iinfo" onclick="toggleExtra(\''+e[0]+'\')"><div class="iname">'+e[2]+'</div>'+
+      '<div class="isub">'+e[3]+'</div></div>'+
+      '<div class="icheck" onclick="toggleExtra(\''+e[0]+'\')">'+(done?'✓':'')+'</div></div>';
+  }).join('');
+  return ''+
+  '<div class="ptitle shimmer">Ибодат 🤲</div>'+
+  '<div class="psub">'+DN[new Date().getDay()]+', '+new Date().getDate()+' '+MN[new Date().getMonth()]+'</div>'+
+  '<div class="aname">'+
+    '<div class="clabel gold" style="text-align:center">☀️ Имя Аллаха сегодня</div>'+
+    '<div class="aname-ar">'+an.ar+'</div>'+
+    '<div class="aname-lat">'+an.lat+'</div>'+
+    '<div class="aname-mean">'+an.mean+'</div>'+
+  '</div>'+
+  '<div class="ring-center"><div class="ring-big">'+ring(pct,'#2ecc71',140,11)+
+    '<div class="ring-val"><div class="ring-num" style="color:var(--green)">'+pct+'%</div>'+
+    '<div class="ring-sub">ибадат сегодня</div></div></div></div>'+
+  '<div class="sectlabel">🕌 Обязательные намазы</div>'+
+  prayers+
+  '<div style="text-align:center;margin:6px 0 10px">'+
+  '<button class="btn sm red-b" onclick="addQada()">📿 + Када (пропущенный) · '+S.qada+'</button></div>'+
+  '<div class="sectlabel">✨ Благие дела</div>'+
+  extraHtml+
+  '<div style="padding:10px 14px;display:flex;gap:8px">'+
+  '<button class="btn primary" style="flex:1" onclick="go(\'tasbih\')">📿 Тасбих</button>'+
+  '<button class="btn ghost" style="flex:1" onclick="go(\'ramadan\')">🌙 Рамадан</button></div>';
+}
+
+/* ════════════ QURAN & ZIKR ════════════ */
+function scrQuran(){
+  var surahPct=Math.round(255/286*100);
+  var qPct=Math.min(100,Math.round(S.quranToday/S.quranGoal*100));
+  var zikr=S.zikr.map(function(z,i){
+    var p=z.count/z.target*100;
+    return '<div class="zcard" onclick="tapZikr('+i+')">'+
+      '<div class="zring">'+ring(p,z.color,58,6)+
+      '<div class="zcnt" style="color:'+z.color+'">'+z.count+'</div></div>'+
+      '<div class="zar">'+z.ar+'</div>'+
+      '<div class="zname">'+z.name+'</div>'+
+      '<div class="ztgt" onclick="event.stopPropagation();changeTarget('+i+')">⚙️ цель '+z.target+'</div>'+
+      '<div class="zhint">+1 — нажми карточку</div></div>';
+  }).join('');
+  return ''+
+  back()+
+  '<div class="ptitle shimmer" style="padding-top:4px">Коран & Зикр 📖</div>'+
+  '<div class="psub">Продолжай с того места, где остановился</div>'+
+  (S.ayah?'<div class="ayah-card">'+
+    '<div class="clabel green">🌿 Аят дня</div>'+
+    '<div class="ayah-ar">'+esc(S.ayah.ar)+'</div>'+
+    '<div class="ayah-tr">«'+esc(S.ayah.tr)+'»</div>'+
+    '<div class="ayah-ref">'+esc(S.ayah.ref)+'</div>'+
+  '</div>':'')+
+  '<div class="card blue-b" style="background:linear-gradient(135deg,#0a1a2a,#061018)">'+
+    '<div class="clabel blue">📍 Последнее место</div>'+
+    '<div style="font-size:17px;font-weight:900">Аль-Бакара · Сура 2</div>'+
+    '<div style="font-size:12px;color:var(--t2);margin-bottom:10px">Аят 255 — Аятуль-Курси</div>'+
+    '<div class="pbar h6"><div class="pfill blue" style="width:'+surahPct+'%"></div></div>'+
+    '<div class="row between" style="margin-top:5px">'+
+    '<span style="font-size:10px;color:var(--t3)">255 / 286 аятов суры</span>'+
+    '<span style="font-size:10px;color:var(--blue);font-weight:800">'+surahPct+'%</span></div>'+
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px">'+
+      qStat(S.quranToday,'Сегодня','var(--blue)')+
+      qStat(S.quranTotal,'Всего','var(--blue)')+
+      qStat(S.quranStreak+'д','Стрик','var(--green)')+
+      qStat(S.quranGoal,'Цель/день','var(--gold)')+
+    '</div>'+
+    '<div style="margin-top:10px"><div class="pbar h4"><div class="pfill blue" style="width:'+qPct+'%"></div></div></div>'+
+    '<div style="display:flex;gap:8px;margin-top:12px">'+
+    '<button class="btn green-b" style="flex:1" onclick="addAyah()">📖 +1 аят прочитан</button>'+
+    '<button class="btn ghost" style="flex:1" onclick="toast(\'📚 Тафсир скоро\')">📚 Тафсир</button></div>'+
+  '</div>'+
+  '<div class="card gold-b tap" onclick="go(\'tasbih\')" style="background:linear-gradient(135deg,#1a1308,#0f0a04)">'+
+    '<div class="row between"><div><div class="clabel gold" style="margin-bottom:3px">📿 Тасбих-счётчик</div>'+
+    '<div style="font-size:13px;font-weight:700">Считай зикр на весь экран</div></div>'+
+    '<div style="font-size:26px">📿</div></div>'+
+  '</div>'+
+  '<div class="sectlabel">📿 Зикр и Салават · нажимай карточку</div>'+
+  '<div class="zikr-grid">'+zikr+'</div>';
+}
+function qStat(v,l,c){
+  return '<div style="text-align:center;background:var(--inpbg);border-radius:8px;padding:8px 4px">'+
+    '<div style="font-size:15px;font-weight:900;color:'+c+'">'+v+'</div>'+
+    '<div style="font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;font-weight:700">'+l+'</div></div>';
+}
+
+/* ════════════ TASBIH ════════════ */
+function scrTasbih(){
+  var z=S.zikr[S.tasbihIdx];
+  var opts=S.zikr.map(function(zz,i){
+    return '<option value="'+i+'"'+(i===S.tasbihIdx?' selected':'')+'>'+zz.name+'</option>';
+  }).join('');
+  return ''+
+  back()+
+  '<div class="ptitle shimmer" style="padding-top:4px">Тасбих 📿</div>'+
+  '<div class="psub">Нажимай большую кнопку для счёта</div>'+
+  '<div class="card" style="text-align:center">'+
+    '<select class="inp" style="margin-bottom:14px" onchange="setTasbihIdx(this.value)">'+opts+'</select>'+
+    '<div class="tasbih">'+
+      '<div class="tasbih-ar">'+z.ar+'</div>'+
+      '<div class="tasbih-num" style="color:var(--gold)">'+S.tasbih+'</div>'+
+      '<div class="tasbih-btn" onclick="tasbihTap()">📿</div>'+
+      '<div class="tasbih-meta">Круг: '+(S.tasbih%33)+'/33 · Кругов: '+Math.floor(S.tasbih/33)+'</div>'+
+    '</div>'+
+    '<div style="display:flex;gap:8px;margin-top:16px">'+
+      '<button class="btn ghost" style="flex:1" onclick="tasbihReset()">↺ Сброс</button>'+
+      '<button class="btn primary" style="flex:1" onclick="tasbihSave()">✓ Засчитать ('+S.tasbih+')</button>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ════════════ RAMADAN ════════════ */
+function scrRamadan(){
+  var cells='';
+  for(var d=1;d<=30;d++){
+    cells+='<div class="ram-cell'+(S.ramadan[d]?' fasted':'')+'" onclick="toggleRamadan('+d+')">'+d+'</div>';
+  }
+  var cnt=ramadanCount();
+  return ''+
+  back()+
+  '<div class="ptitle shimmer" style="padding-top:4px">Рамадан 🌙</div>'+
+  '<div class="psub">Трекер 30 дней благословенного поста</div>'+
+  '<div class="card gold-b" style="text-align:center;background:linear-gradient(135deg,#1a1308,#0f0a04)">'+
+    '<div class="clabel gold">Постов соблюдено</div>'+
+    '<div style="font-size:42px;font-weight:900;color:var(--gold);letter-spacing:-1px">'+cnt+' <span style="font-size:18px;color:var(--t3)">/ 30</span></div>'+
+    '<div class="pbar h8" style="margin-top:8px"><div class="pfill gold" style="width:'+Math.round(cnt/30*100)+'%"></div></div>'+
+  '</div>'+
+  '<div class="card"><div class="clabel gold">📅 Дни месяца — нажми, чтобы отметить пост</div>'+
+  '<div class="ram-grid" style="margin-top:10px">'+cells+'</div></div>'+
+  '<div class="card green-b" style="background:linear-gradient(135deg,#0c1f14,#08160e)">'+
+    '<div style="font-size:12px;color:var(--green);line-height:1.6">🤲 «Кто постился в Рамадан с верой и надеждой на награду — тому простятся прежние грехи» (Бухари, Муслим).</div>'+
+  '</div>';
+}
+
+/* ════════════ FINANCE ════════════ */
+function budgetCard(spent){
+  if(!S.budget||S.budget<=0){
+    return '<div class="budget-card" onclick="setBudget()" style="cursor:pointer">'+
+      '<div class="row between"><span class="clabel gold" style="margin:0">🎯 Бюджет месяца</span>'+
+      '<span class="badge gold">Задать</span></div>'+
+      '<div style="font-size:11px;color:var(--t3);margin-top:6px">Нажми, чтобы установить лимит расходов на месяц</div></div>';
+  }
+  var pct=Math.min(100,Math.round(spent/S.budget*100));
+  var over=spent>S.budget;
+  var left=S.budget-spent;
+  return '<div class="budget-card" onclick="setBudget()" style="cursor:pointer">'+
+    '<div class="row between"><span class="clabel '+(over?'red':'gold')+'" style="margin:0">🎯 Бюджет месяца</span>'+
+    '<span class="badge '+(over?'red':'gold')+'">'+pct+'%</span></div>'+
+    '<div style="font-size:20px;font-weight:900;margin:4px 0;color:'+(over?'var(--red)':'var(--t1)')+'">'+
+    fmt(spent)+' / '+fmt(S.budget)+' '+S.currency+'</div>'+
+    '<div class="pbar h8"><div class="pfill '+(over?'red':pct>80?'orange':'green')+'" style="width:'+pct+'%"></div></div>'+
+    '<div style="font-size:11px;margin-top:6px;color:'+(over?'var(--red)':'var(--t3)')+'">'+
+    (over?'⚠️ Превышение на '+fmt(-left)+' '+S.currency:'Осталось '+fmt(left)+' '+S.currency)+'</div></div>';
+}
+function scrFinance(){
+  var mtx=monthTx();
+  var inc=mtx.filter(function(t){return t.type==='income';}).reduce(function(a,t){return a+t.amount;},0);
+  var exp=mtx.filter(function(t){return t.type==='expense';}).reduce(function(a,t){return a+t.amount;},0);
+  var tot=inc+exp||1;
+  var incP=Math.round(inc/tot*100), expP=Math.round(exp/tot*100);
+
+  var cats=allCats(UI.txType);
+  var catHtml=cats.map(function(c,i){
+    return '<div class="fin-cat'+(UI._selCat===i?' sel':'')+'" onclick="selectCat('+i+')">'+
+      '<div class="fin-cat-circ" style="background:'+c.c+'22;color:'+c.c+'">'+c.i+'</div>'+
+      '<div class="fin-cat-lbl">'+esc(c.n)+'</div></div>';
+  }).join('');
+
+  var flt=UI.histFilter==='all'?S.history:S.history.filter(function(t){return t.type===UI.histFilter;});
+  var histHtml='';
+  if(!flt.length){ histHtml='<div class="empty">Операций нет</div>'; }
+  else {
+    var curDate='';
+    flt.slice(0,40).forEach(function(t){
+      var ri=S.history.indexOf(t);
+      if(t.date!==curDate){ curDate=t.date; histHtml+='<div class="tx-datehdr">'+prettyDate(t.date)+'</div>'; }
+      histHtml+='<div class="tx-row">'+
+        '<div class="tx-circ" style="background:'+t.color+'22;color:'+t.color+'">'+t.icon+'</div>'+
+        '<div class="tx-info" onclick="editTx('+ri+')"><div class="tx-name">'+esc(t.cat)+'</div>'+
+        '<div class="tx-meta">'+t.currency+' · нажми для изменения</div></div>'+
+        '<div class="tx-amt '+(t.type==='income'?'income':'')+'" onclick="editTx('+ri+')">'+(t.type==='income'?'+':'−')+fmt(t.amount)+'</div>'+
+        '<div class="tx-del" onclick="delTx('+ri+')">🗑</div></div>';
+    });
+  }
+
+  var debtT=debtTotal();
+  var debtHtml=S.debts.length? S.debts.map(function(d){
+    return '<div class="debt-item"><div><div class="debt-name">'+esc(d.name)+'</div>'+
+      '<div class="debt-date">'+d.date+'</div></div>'+
+      '<div class="row" style="gap:8px"><span class="debt-amt">'+fmt(d.amount)+' '+d.currency+'</span>'+
+      '<button class="debt-mini debt-plus" onclick="editDebt('+d.id+',true)">+</button>'+
+      '<button class="debt-mini debt-minus" onclick="editDebt('+d.id+',false)">−</button></div></div>';
+  }).join('') : '<div class="empty">Долгов нет ✅</div>';
+
+  return ''+
+  '<div class="fin-hero">'+
+    '<div class="fin-eye" onclick="toggleBalance()">'+(UI.balanceShown?'👁️':'🙈')+'</div>'+
+    '<div class="fin-bal">'+(UI.balanceShown?fmt(S.balance):'••••••')+'</div>'+
+    '<div class="fin-lbl">Текущий баланс · '+S.currency+'</div>'+
+  '</div>'+
+  '<div class="fin-sum">'+
+    '<div class="fin-sum-box"><div class="fin-sum-lbl">↗ Доход за месяц</div>'+
+    '<div class="fin-sum-val" style="color:var(--green)">+'+fmt(inc)+'</div></div>'+
+    '<div class="fin-sum-box"><div class="fin-sum-lbl">↘ Расход за месяц</div>'+
+    '<div class="fin-sum-val" style="color:var(--red)">−'+fmt(exp)+'</div></div>'+
+  '</div>'+
+  budgetCard(exp)+
+  '<div class="fin-donut-wrap">'+
+    '<svg class="fin-donut" viewBox="0 0 36 36">'+
+    '<path d="M18 2 a16 16 0 0 1 0 32 a16 16 0 0 1 0 -32" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3.5"/>'+
+    '<path d="M18 2 a16 16 0 0 1 0 32 a16 16 0 0 1 0 -32" fill="none" stroke="#f43f5e" stroke-width="3.5" stroke-dasharray="'+expP+',100" stroke-linecap="round"/>'+
+    '</svg>'+
+    '<div class="fin-legend">'+
+      '<div class="fin-leg-item"><span class="fin-leg-dot" style="background:#10b981"></span>Доход<span class="fin-leg-pct">'+incP+'%</span></div>'+
+      '<div class="fin-leg-item"><span class="fin-leg-dot" style="background:#f43f5e"></span>Расход<span class="fin-leg-pct">'+expP+'%</span></div>'+
+      '<div class="fin-leg-item"><span class="fin-leg-dot" style="background:#8b5cf6"></span>Остаток<span class="fin-leg-pct">'+Math.max(0,100-incP-expP)+'%</span></div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="card" style="padding:16px">'+
+    '<div class="fin-tabs">'+
+      '<div class="fin-tab'+(UI.txType==='expense'?' act-exp':'')+'" onclick="switchFinTab(\'expense\')">💸 Расход</div>'+
+      '<div class="fin-tab'+(UI.txType==='income'?' act-inc':'')+'" onclick="switchFinTab(\'income\')">💰 Доход</div>'+
+    '</div>'+
+    '<div class="fin-calc-disp"><span id="calcVal">'+UI.calc+'</span><span class="fin-calc-cur">'+S.currency+'</span></div>'+
+    '<div class="fin-calc-grid">'+
+      ['1','2','3'].map(function(d){return '<div class="calc-btn" onclick="appendCalc(\''+d+'\')">'+d+'</div>';}).join('')+
+      '<div class="calc-btn del" onclick="delCalc()">⌫</div>'+
+      ['4','5','6'].map(function(d){return '<div class="calc-btn" onclick="appendCalc(\''+d+'\')">'+d+'</div>';}).join('')+
+      '<div class="calc-btn fn" onclick="switchCurrency()">'+S.currency+'</div>'+
+      ['7','8','9'].map(function(d){return '<div class="calc-btn" onclick="appendCalc(\''+d+'\')">'+d+'</div>';}).join('')+
+      '<div class="calc-btn fn" onclick="appendCalc(\'00\')">00</div>'+
+      '<div class="calc-btn fn" onclick="clearCalc()">C</div>'+
+      '<div class="calc-btn" onclick="appendCalc(\'0\')">0</div>'+
+      '<div class="calc-btn" onclick="appendCalc(\'.\')">.</div>'+
+      '<div class="calc-btn ok" onclick="submitCalc()">✓</div>'+
+    '</div>'+
+    '<div class="fin-cat-scroll">'+catHtml+'</div>'+
+    '<button class="fin-addcat" onclick="addCustomCat()">➕ Добавить категорию</button>'+
+  '</div>'+
+  '<div class="card" style="padding:16px">'+
+    '<div class="row between" style="margin-bottom:8px">'+
+    '<span style="font-size:13px;font-weight:800">📋 История</span>'+
+    '<div class="fin-hist-tabs">'+
+      '<div class="fin-hist-tab'+(UI.histFilter==='all'?' act':'')+'" onclick="filterHistory(\'all\')">Все</div>'+
+      '<div class="fin-hist-tab'+(UI.histFilter==='expense'?' act':'')+'" onclick="filterHistory(\'expense\')">Расход</div>'+
+      '<div class="fin-hist-tab'+(UI.histFilter==='income'?' act':'')+'" onclick="filterHistory(\'income\')">Доход</div>'+
+    '</div></div>'+
+    histHtml+
+  '</div>'+
+  '<div class="debt-card">'+
+    '<div class="row between"><span class="clabel purple" style="margin:0">📉 Общая задолженность</span>'+
+    '<span style="font-size:9px;color:var(--t3)">'+(S.ratesUpdated?'курс: '+esc(S.ratesUpdated):'курс загружается…')+'</span></div>'+
+    '<div class="debt-total">'+fmt(debtT)+' <span style="font-size:17px;color:var(--purple)">'+UI.debtCur+'</span></div>'+
+    '<div style="display:flex;gap:6px;margin:9px 0 7px">'+
+    ['UZS','USD','RUB','TJS'].map(function(c){
+      return '<button class="cur-pick'+(UI.debtCur===c?' on':'')+'" onclick="setDebtCur(\''+c+'\')">'+c+'</button>';
+    }).join('')+'</div>'+
+    '<div style="font-size:9px;color:var(--t3);line-height:1.5">💱 1 USD = '+fmt(S.rates.UZS)+' сум · '+S.rates.RUB.toFixed(1)+' ₽ · '+S.rates.TJS.toFixed(2)+' смн</div>'+
+    '<div class="debt-pred">'+(S.debts.length===0?'ИИ-прогноз: долгов нет ✅':
+      'ИИ-прогноз: ~'+Math.max(1,Math.ceil(debtTotalUZS()/(convert(inc,S.currency,'UZS')||3000000)))+' мес. до полного закрытия')+'</div>'+
+    '<div style="margin-top:12px">'+debtHtml+'</div>'+
+    '<div style="margin-top:12px"><button class="btn purple-b block" onclick="openModal(\'adddebt\')">📉 Добавить долг</button></div>'+
+  '</div>';
+}
+
+/* ════════════ DEV ════════════ */
+function scrDev(){
+  var cups='';
+  for(var i=0;i<S.waterTarget;i++){
+    cups+='<div class="wcup'+(i<S.water?' filled':'')+'" onclick="tapWater()">'+(i<S.water?'💧':'')+'</div>';
+  }
+  var skills=[['uzb','🇺🇿','Узбекский язык','Продажи на фабрике'],
+    ['ara','🕌','Арабский язык','Коран и тафсир'],
+    ['fin','💹','Фин. грамотность','Анализ пассивов'],
+    ['ai','🤖','ИИ и автоматизация','Бизнес-процессы']];
+  var skillHtml=skills.map(function(s){
+    var done=S.skills[s[0]];
+    return '<div class="iitem '+(done?'done':'')+'">'+
+      '<div class="iicon">'+s[1]+'</div>'+
+      '<div class="iinfo" onclick="toggleSkill(\''+s[0]+'\')"><div class="iname">'+s[2]+'</div>'+
+      '<div class="isub">'+s[3]+'</div></div>'+
+      '<div class="icheck" onclick="toggleSkill(\''+s[0]+'\')">'+(done?'✓':'')+'</div></div>';
+  }).join('');
+  return ''+
+  back()+
+  '<div class="ptitle shimmer" style="padding-top:4px">Развитие 🧠</div>'+
+  '<div class="psub">Тело и разум — аманат от Аллаха</div>'+
+  '<div class="card blue-b">'+
+    '<div class="row between"><span class="clabel blue" style="margin:0">💧 Вода</span>'+
+    '<span class="badge blue">'+S.water+' / '+S.waterTarget+' стаканов</span></div>'+
+    '<div class="water-row">'+cups+'</div>'+
+    '<div class="pbar h6" style="margin-top:8px"><div class="pfill blue" style="width:'+Math.round(S.water/S.waterTarget*100)+'%"></div></div>'+
+    '<div style="font-size:10px;color:var(--t3);margin-top:6px;text-align:center">Нажми на стакан, чтобы отметить</div>'+
+  '</div>'+
+  '<div class="card">'+
+    '<div class="dev-health">'+
+      '<div class="dev-h-item" onclick="toggleSport()"><div class="dev-h-ico">💪</div>'+
+      '<div class="dev-h-name">Спорт</div><div class="dev-h-val">'+(S.sport?'✅ Сделано':'Нет')+'</div></div>'+
+      '<div class="dev-divider"></div>'+
+      '<div class="dev-h-item"><div class="dev-h-ico">😴</div>'+
+      '<div class="dev-h-name">Сон</div><div class="dev-h-val">'+S.sleep+' ч</div></div>'+
+      '<div class="dev-divider"></div>'+
+      '<div class="dev-h-item"><div class="dev-h-ico">🚶</div>'+
+      '<div class="dev-h-name">Шаги</div><div class="dev-h-val">'+fmt(S.steps)+'</div></div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="sectlabel">📚 Обучение и навыки</div>'+
+  skillHtml+
+  '<div class="card green-b" style="background:linear-gradient(135deg,#0c1f14,#08160e)">'+
+    '<div style="font-size:12px;color:var(--green);line-height:1.6">🤲 «Сильный верующий лучше и любимее для Аллаха, чем слабый». Развивай тело и знания ради ибадата.</div>'+
+  '</div>';
+}
+
+/* ════════════ GOALS ════════════ */
+function scrGoals(){
+  var hzList=['10years','year','month'];
+  var hzTitle={'10years':'🌅 Горизонт 10 лет','year':'📆 Цели на год','month':'🗓️ Цели на месяц'};
+  var body='';
+  hzList.forEach(function(h){
+    var goals=S.goals.filter(function(g){return g.horizon===h;});
+    body+='<div class="sectlabel">'+hzTitle[h]+'</div>';
+    if(!goals.length){ body+='<div class="empty">Целей нет</div>'; }
+    else body+=goals.map(function(g){
+      return '<div class="goal-card">'+
+        '<div class="row between"><div style="font-size:13px;font-weight:800;flex:1">'+
+        (g.category==='din'?'🕋':'💰')+' '+esc(g.text)+'</div>'+
+        '<span class="task-del" onclick="delGoal('+g.id+')">✕</span></div>'+
+        '<div class="pbar h6" style="margin:8px 0 5px"><div class="pfill '+(g.category==='din'?'green':'gold')+'" style="width:'+g.pct+'%"></div></div>'+
+        '<div class="row between"><span style="font-size:10px;color:var(--t3)">'+g.pct+'% выполнено</span>'+
+        '<button class="btn sm green-b" onclick="goalProgress('+g.id+')">+ Прогресс</button></div>'+
+      '</div>';
+    }).join('');
+  });
+  return ''+
+  '<div class="ptitle shimmer">Цели 🎯</div>'+
+  '<div class="psub">10 лет → Год → Месяц → Сегодня</div>'+
+  '<div style="padding:0 14px 10px"><button class="btn primary block" onclick="openModal(\'addgoal\')">+ Добавить новую цель</button></div>'+
+  '<div class="card blue-b" style="background:linear-gradient(135deg,#0f1d32,#0a1220)">'+
+    '<div class="clabel blue">🔗 Принцип Goal Engine</div>'+
+    '<div style="font-size:12px;color:var(--t2);line-height:1.9">'+
+    '📌 Мечта 10 лет → разбей на годы<br>'+
+    '📆 Год → месяцы → <strong style="color:var(--green)">шаг сегодня</strong><br>'+
+    '✓ Сегодня выполнил → завтра дальше</div>'+
+  '</div>'+
+  body;
+}
+
+/* ════════════ STATS ════════════ */
+function scrStats(){
+  var days=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  var week=[], base=new Date();
+  for(var i=6;i>=0;i--){
+    var d=new Date(base); d.setDate(d.getDate()-i);
+    var k=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    if(i===0) week.push(lifeScore());
+    else if(S.historyByDate[k]) week.push(S.historyByDate[k].score||0);
+    else week.push(Math.floor(Math.random()*45)+25);
+  }
+  var chart=week.map(function(v,i){
+    var c=v>=70?'var(--green)':v>=50?'var(--gold)':'var(--red)';
+    return '<div class="wcol"><div class="wpct" style="color:'+c+'">'+v+'%</div>'+
+      '<div class="wbar" style="height:'+(v*0.7)+'%;background:'+c+'"></div>'+
+      '<div class="wday">'+days[i]+'</div></div>';
+  }).join('');
+  var now=new Date(), y=now.getFullYear(), m=now.getMonth();
+  var dim=new Date(y,m+1,0).getDate();
+  var fd=new Date(y,m,1).getDay(); fd=fd===0?6:fd-1;
+  var cal=days.map(function(d){return '<div class="cal-hd">'+d+'</div>';}).join('');
+  for(var j=0;j<fd;j++) cal+='<div></div>';
+  for(var dd=1;dd<=dim;dd++){
+    var ds=y+'-'+pad(m+1)+'-'+pad(dd);
+    var hasData=S.historyByDate[ds]!==undefined||(dd===now.getDate());
+    var isToday=dd===now.getDate();
+    cal+='<div class="cal-cell'+(hasData?' data':'')+(isToday?' today':'')+'">'+dd+'</div>';
+  }
+  var achv=BADGES.map(function(b){
+    var earned=S.achievements.indexOf(b.id)>=0;
+    return '<div class="achv-detail">'+
+      '<div class="achv-badge'+(earned?' earned':'')+'" style="width:40px;height:40px;font-size:18px">'+b.icon+'</div>'+
+      '<div style="flex:1"><div style="font-size:13px;font-weight:800">'+b.name+'</div>'+
+      '<div style="font-size:10px;color:var(--t3)">'+b.desc+'</div></div>'+
+      '<span style="color:'+(earned?'var(--green)':'var(--t3)')+'">'+(earned?'✅':'🔒')+'</span></div>';
+  }).join('');
+  return ''+
+  '<div class="ptitle shimmer">Статистика 📊</div>'+
+  '<div class="psub">Твой прогресс и достижения</div>'+
+  '<div class="streak-grid">'+
+    sbox(lifeScore()+'%','Сегодня','var(--green)')+
+    sbox(S.quranTotal,'Аятов','var(--blue)')+
+    sbox(S.achievements.length+'/'+BADGES.length,'Награды','var(--gold)')+
+    sbox(Object.keys(S.historyByDate).length,'Дней','var(--purple)')+
+  '</div>'+
+  '<div class="card"><div class="clabel white">📈 Прогресс за 7 дней</div>'+
+  '<div class="week-chart">'+chart+'</div></div>'+
+  '<div class="card"><div class="clabel gold">📅 Календарь '+MN[m]+'</div>'+
+  '<div class="cal-grid" style="margin-top:8px">'+cal+'</div></div>'+
+  '<div class="card"><div class="clabel purple">🏆 Достижения</div>'+
+  '<div style="margin-top:4px">'+achv+'</div></div>';
+}
+function sbox(v,l,c){
+  return '<div class="sbox"><div class="sval" style="color:'+c+'">'+v+'</div><div class="slbl">'+l+'</div></div>';
+}
+
+/* ════════════ PROFILE ════════════ */
+function scrProfile(){
+  return ''+
+  back()+
+  '<div class="profile-hero">'+
+    '<div class="pavatar">م</div>'+
+    '<div class="pname">'+esc(S.name)+'</div>'+
+    '<div class="ptag">Мусульманин · '+S.city+' 🇺🇿</div>'+
+  '</div>'+
+  '<div class="streak-fire"><div class="sfire">🔥</div>'+
+    '<div><div class="sdays">'+Object.keys(S.historyByDate).length+' дней</div>'+
+    '<div style="font-size:12px;font-weight:600">Дней в системе</div>'+
+    '<div style="font-size:10px;color:var(--t3);margin-top:2px">Баракят в постоянстве</div></div>'+
+  '</div>'+
+  '<div class="streak-grid" style="grid-template-columns:repeat(3,1fr)">'+
+    sbox(S.quranTotal,'Аятов','var(--blue)')+
+    sbox(S.achievements.length,'Награды','var(--gold)')+
+    sbox(S.goals.length,'Целей','var(--green)')+
+  '</div>'+
+  '<div class="card" style="padding:0">'+
+    '<div class="pmenu-item" onclick="toggleTheme()"><span>🌓 Тема оформления</span>'+
+    '<span style="color:var(--gold);font-size:11px;font-weight:800">'+(S.theme==='dark'?'Тёмная':'Светлая')+'</span></div>'+
+    '<div class="pmenu-item" onclick="exportData()"><span>📥 Экспорт данных</span><span class="pmenu-arrow">›</span></div>'+
+    '<div class="pmenu-item" onclick="importData()"><span>📤 Импорт данных</span><span class="pmenu-arrow">›</span></div>'+
+    '<div class="pmenu-item" onclick="renameUser()"><span>✏️ Изменить имя</span><span class="pmenu-arrow">›</span></div>'+
+    '<div class="pmenu-item" onclick="setupPin()"><span>🔒 PIN-код для входа</span>'+
+    '<span style="color:'+(S.pinOn?'var(--green)':'var(--t3)')+';font-size:11px;font-weight:800">'+(S.pinOn?'Вкл':'Выкл')+'</span></div>'+
+    '<div class="pmenu-item" onclick="go(\'ramadan\')"><span>🌙 Рамадан-трекер</span><span class="pmenu-arrow">›</span></div>'+
+    '<div class="pmenu-item" onclick="resetAll()"><span style="color:var(--red)">🗑️ Сбросить всё</span><span class="pmenu-arrow">›</span></div>'+
+  '</div>'+
+  '<div class="card green-b" style="background:linear-gradient(135deg,#0c1f14,#08160e)">'+
+    '<div style="font-size:12px;color:var(--green);line-height:1.6">🤲 «Самые любимые дела для Аллаха — постоянные, даже если малы». Возвращайся каждый день, ИншаАллах.</div>'+
+  '</div>';
+}
+function renameUser(){
+  var n=prompt('Твоё имя:',S.name);
+  if(n&&n.trim()){ S.name=n.trim(); save(); refresh(); toast('✅ Имя обновлено'); }
+}
+function resetAll(){
+  if(confirm('Сбросить ВСЕ данные? Это нельзя отменить.')){
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    S=JSON.parse(JSON.stringify(DEFAULT_STATE));
+    S.lastResetDate=todayKey();
+    applyTheme(); renderApp(); fetchPrayerTimes();
+    toast('🗑️ Все данные сброшены');
+  }
+}
+
+/* ════════════ AI ════════════ */
+function scrAI(){
+  var score=lifeScore();
+  var bubbles=S.chat.map(function(m){
+    return '<div class="bubble '+m.role+'"><div class="bcontent">'+m.html+'</div>'+
+      '<div class="btime">'+m.time+'</div></div>';
+  }).join('');
+  if(UI.aiTyping){
+    bubbles+='<div class="bubble ai"><div class="bcontent">'+
+      '<div class="ai-typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div></div>';
+  }
+  return ''+
+  '<div style="flex:1;min-height:0;display:flex;flex-direction:column">'+
+    '<div style="flex-shrink:0">'+
+      '<div class="ptitle shimmer" style="padding-bottom:3px">Nuur AI 🤖</div>'+
+      '<div class="psub" style="padding-bottom:7px">На Claude · знает все твои данные</div>'+
+      '<div class="analysis-grid">'+
+        ac('Прогресс',score+'%','var(--green)','жив. расчёт')+
+        ac('Намазы',namazDone()+'/5','var(--gold)','сегодня')+
+        ac('Зикр',zikrTotal()+'','var(--blue)','из '+zikrMax())+
+        ac('Долги',S.debts.length+'','var(--red)','активных')+
+      '</div>'+
+    '</div>'+
+    '<div class="ai-msgs" id="aimsgs">'+bubbles+'</div>'+
+    '<div class="ai-bar">'+
+      '<input class="ai-inp" id="aiInp" placeholder="Спроси Nuur AI..." onkeydown="if(event.key===\'Enter\')sendAI()">'+
+      '<div class="ai-send" onclick="sendAI()">➤</div>'+
+    '</div>'+
+  '</div>';
+}
+function ac(l,v,c,s){
+  return '<div class="ac"><div class="ac-lbl">'+l+'</div>'+
+    '<div class="ac-val" style="color:'+c+'">'+v+'</div><div class="ac-sub">'+s+'</div></div>';
+}
+function scrollChatBottom(){
+  setTimeout(function(){ var m=$('aimsgs'); if(m) m.scrollTop=m.scrollHeight; },30);
+}
+function aiInit(){
+  S.aiInited=true;
+  S.chat.push({role:'ai',time:hhmm(new Date()),html:
+    'Ассалому алайкум, '+esc(S.name)+'! 🌙<br><br>'+
+    'Я — <strong style="color:var(--gold2)">Nuur AI</strong>, твой персональный наставник. '+
+    'Я вижу все твои данные — намазы, зикр, Коран, финансы, долги, цели, здоровье — '+
+    'и отвечу на <strong>любой</strong> вопрос: про ислам, продуктивность, деньги, жизнь.<br><br>'+
+    'Прогресс дня сейчас — <strong style="color:var(--green)">'+lifeScore()+'%</strong>. С чего начнём?'+
+    '<div class="ai-chips">'+
+    chip('📊 Отчёт за день','Сделай подробный отчёт за мой день: что хорошо, что подтянуть, и дай вывод')+
+    chip('📅 План на завтра','Составь подробный план на завтра по времени, учти невыполненные задачи и намазы')+
+    chip('💰 Разбор финансов','Проанализируй мои финансы и долги, дай конкретный план')+
+    chip('🎯 Совет по целям','Проанализируй мои цели и подскажи, какой шаг сделать сегодня')+
+    chip('🤲 Поддержка','Дай мне исламскую мотивацию и слово поддержки')+
+    '</div>'});
+}
+function chip(label,prompt){
+  var p=prompt.replace(/'/g,'\\u0027').replace(/"/g,'&quot;');
+  return '<div class="aichip" onclick="sendAI(\''+p+'\')">'+label+'</div>';
+}
+function buildSysPrompt(){
+  var inc=monthTx().filter(function(t){return t.type==='income';}).reduce(function(a,t){return a+t.amount;},0);
+  var exp=monthTx().filter(function(t){return t.type==='expense';}).reduce(function(a,t){return a+t.amount;},0);
+  var pending=S.tasks.filter(function(t){return !t.done;}).map(function(t){return t.title;});
+  var doneT=S.tasks.filter(function(t){return t.done;}).map(function(t){return t.title;});
+  var goals=S.goals.map(function(g){return g.text+' ('+g.pct+'%, '+hzName(g.horizon)+')';});
+  var debts=S.debts.map(function(d){return d.name+': '+fmt(d.amount)+' '+d.currency;});
+  var missedP=[];
+  var pn={fajr:'Фаджр',zuhr:'Зухр',asr:'Аср',maghrib:'Магриб',isha:'Иша'};
+  for(var k in S.prayers){ if(!S.prayers[k]) missedP.push(pn[k]); }
+  return 'Ты — Nuur AI, персональный исламский наставник, коуч продуктивности и аналитик '+
+    'для мусульманина по имени '+S.name+' из города '+S.city+' (Узбекистан). '+
+    'Ты — умный, внимательный собеседник. Отвечай на ЛЮБЫЕ вопросы пользователя — '+
+    'про ислам, продуктивность, финансы, здоровье, учёбу, жизнь, что угодно.\n\n'+
+    'АКТУАЛЬНЫЕ ДАННЫЕ ПОЛЬЗОВАТЕЛЯ (живые, прямо сейчас):\n'+
+    '- Намерение дня: "'+S.niyyah+'"\n'+
+    '- Общий прогресс дня (Life Score): '+lifeScore()+'%\n'+
+    '- Намазы: выполнено '+namazDone()+'/5'+(missedP.length?', НЕ выполнены: '+missedP.join(', '):', все 5 выполнены ✓')+'\n'+
+    '- Время намазов сегодня: Фаджр '+S.prayerTimes.fajr+', Зухр '+S.prayerTimes.zuhr+', Аср '+S.prayerTimes.asr+', Магриб '+S.prayerTimes.maghrib+', Иша '+S.prayerTimes.isha+'\n'+
+    '- Пропущенные намазы (када): '+S.qada+'\n'+
+    '- Доп. ибадаты: тахаджуд '+(S.extra.tahajjud?'✓':'✗')+', родители '+(S.extra.parents?'✓':'✗')+', садака '+(S.extra.sadaka?'✓':'✗')+'\n'+
+    '- Зикр сегодня: '+zikrTotal()+' из '+zikrMax()+'\n'+
+    '- Коран: сегодня '+S.quranToday+' аятов (цель '+S.quranGoal+'), всего прочитано '+S.quranTotal+'\n'+
+    '- Задачи выполнены: '+(doneT.length?doneT.join(', '):'нет')+'\n'+
+    '- Задачи НЕ выполнены: '+(pending.length?pending.join(', '):'все выполнены')+'\n'+
+    '- Финансы за месяц: доход '+fmt(inc)+', расход '+fmt(exp)+', баланс '+fmt(S.balance)+' '+S.currency+'\n'+
+    '- Бюджет месяца: '+(S.budget>0?fmt(S.budget)+' '+S.currency+' (потрачено '+Math.round(exp/S.budget*100)+'%)':'не задан')+'\n'+
+    '- Долги: '+(debts.length?debts.join('; '):'нет долгов')+'\n'+
+    '- Здоровье: вода '+S.water+'/'+S.waterTarget+' стаканов, спорт '+(S.sport?'сделан':'не сделан')+', сон '+S.sleep+'ч\n'+
+    '- Навыки изучены сегодня: '+skillsDone()+'/4\n'+
+    '- Цели: '+(goals.length?goals.join('; '):'нет')+'\n\n'+
+    'КАК ОТВЕЧАТЬ В ЗАВИСИМОСТИ ОТ ВОПРОСА:\n'+
+    '• ОТЧЁТ/РАЗБОР ДНЯ → структура: сначала «Что хорошо» с конкретными цифрами, '+
+    'затем «Что подтянуть», в конце «Главный вывод» и 2-3 конкретных совета.\n'+
+    '• ПЛАН НА ЗАВТРА → расписание по блокам Утро/День/Вечер, привяжи дела к временам намазов, '+
+    'обязательно включи невыполненные сегодня задачи, добавь зикр/Коран/спорт.\n'+
+    '• ФИНАНСЫ/ДОЛГИ → конкретный план с суммами, сроками, опирайся на реальные цифры.\n'+
+    '• Любой другой вопрос → отвечай по сути, развёрнуто и полезно.\n\n'+
+    'СТИЛЬ: тёплый исламский тон; уместно используй Машааллах, Бисмилля, Альхамдулилла, '+
+    'ИншаАллах, БаракаЛлаху фик; используй маркированные списки для планов и советов; '+
+    'выделяй важное **жирным**; уместно приводи аяты и хадисы; '+
+    'отвечай на русском, конкретно, по делу, с эмодзи. Будь внимательным и мудрым наставником.';
+}
+/* ── Локальный умный анализ (работает без интернета) ── */
+function localAI(q){
+  var ql=(q||'').toLowerCase();
+  if(/завтра|tomorrow|план на|расписан/.test(ql)) return tomorrowPlan();
+  if(/отч[её]т|разбор|итог|как прош|анализ дня|оцен/.test(ql)) return dayReport();
+  if(/долг|финанс|деньг|бюджет|расход|доход|эконом|накоп/.test(ql)) return financeAdvice();
+  if(/мотивац|хадис|вдохнов|устал|тяжело|лен[ьи]|сложно/.test(ql)) return motivation();
+  if(/намаз|молитв|ибадат|зикр|коран/.test(ql)) return ibadahAdvice();
+  return dayReport();
+}
+function dayReport(){
+  var nd=namazDone(), score=lifeScore(), good=[], bad=[];
+  if(nd>=4) good.push('Намазы: '+nd+'/5 — машааллах, крепкая дисциплина');
+  else if(nd>0) bad.push('Намазы: '+nd+'/5 — это фундамент дня, подтяни');
+  else bad.push('Намазы ещё не отмечены — начни прямо сейчас');
+  if(zikrTotal()>=200) good.push('Зикр: '+zikrTotal()+' — язык занят поминанием Аллаха');
+  else bad.push('Зикр: '+zikrTotal()+' — добавь хотя бы 100 «СубханаЛлах»');
+  if(S.quranToday>=S.quranGoal) good.push('Коран: '+S.quranToday+' аятов — норма дня выполнена');
+  else bad.push('Коран: '+S.quranToday+'/'+S.quranGoal+' аятов — дочитай норму');
+  var td=tasksDone(), tt=S.tasks.length;
+  if(tt&&td===tt) good.push('Все задачи ('+tt+') выполнены — барака!');
+  else if(tt&&td>0) bad.push('Задачи: '+td+'/'+tt+', осталось '+(tt-td));
+  else if(tt) bad.push('Задачи ещё не начаты ('+tt+' шт.)');
+  if(S.sport) good.push('Тренировка сделана — тело тоже аманат');
+  if(S.water>=S.waterTarget) good.push('Вода: норма выполнена');
+  else bad.push('Вода: '+S.water+'/'+S.waterTarget+' стаканов');
+  if(S.extra.sadaka) good.push('Садака отмечена — очищение имущества');
+  var verdict=score>=75?'Машааллах! День сильный. Главное — заверши намазы и закрепи результат вечерним зикром.':
+    score>=45?'Хороший темп, но есть резерв. Сфокусируйся на пунктах из списка «подтянуть» — до Магриба ещё есть время.':
+    'День только разгоняется. Не откладывай — сделай сейчас один намаз и один зикр, и инерция запустится, иншаАллах.';
+  return '# 📊 Отчёт за день\n\n**Общий прогресс: '+score+'%**\n\n'+
+    '## ✅ Что хорошо\n'+(good.length?good.map(function(g){return '• '+g;}).join('\n'):'• День впереди — всё ещё можно сделать')+'\n\n'+
+    '## ⚠️ Что подтянуть\n'+(bad.length?bad.map(function(b){return '• '+b;}).join('\n'):'• Всё на уровне, машааллах!')+'\n\n'+
+    '## 💡 Главный вывод\n'+verdict;
+}
+function tomorrowPlan(){
+  var pending=S.tasks.filter(function(t){return !t.done;});
+  var p=S.prayerTimes;
+  var tasksLines=pending.length? pending.map(function(t){return '• Задача: '+t.title;}).join('\n')
+    : '• Запланируй 2-3 главные задачи на день';
+  return '# 📅 План на завтра\n\nБисмилля. Вот сбалансированный план дня:\n\n'+
+    '## 🌅 Утро\n'+
+    '• '+p.fajr+' — Фаджр намаз, начни день с поклонения\n'+
+    '• После Фаджра — '+S.quranGoal+' аятов Корана и 100 зикров\n'+
+    '• Стакан воды + лёгкая зарядка\n\n'+
+    '## ☀️ День\n'+
+    '• '+p.zuhr+' — Зухр намаз\n'+
+    tasksLines+'\n'+
+    '• '+p.asr+' — Аср намаз, короткий перерыв\n\n'+
+    '## 🌆 Вечер\n'+
+    '• '+p.maghrib+' — Магриб намаз\n'+
+    '• Тренировка или прогулка, ужин\n'+
+    '• '+p.isha+' — Иша намаз\n'+
+    '• Перед сном: салават, дуа за родителей, намерение на новый день\n\n'+
+    '**Совет:** сделай самое трудное дело до Зухра — пока есть силы и баракят утра. ИншаАллах день будет продуктивным! 🤲';
+}
+function financeAdvice(){
+  var inc=monthTx().filter(function(t){return t.type==='income';}).reduce(function(a,t){return a+t.amount;},0);
+  var exp=monthTx().filter(function(t){return t.type==='expense';}).reduce(function(a,t){return a+t.amount;},0);
+  var debtU=debtTotalUZS();
+  var lines=[];
+  lines.push('**Доход за месяц:** '+fmt(inc)+' '+S.currency);
+  lines.push('**Расход за месяц:** '+fmt(exp)+' '+S.currency);
+  lines.push('**Баланс:** '+fmt(S.balance)+' '+S.currency);
+  var advice=[];
+  if(debtU>0){
+    advice.push('Долг ~'+fmt(debtU)+' UZS. Направляй на погашение фиксированную долю каждого дохода — даже 10-15%.');
+    advice.push('Сначала закрывай самый маленький долг — это даёт мотивацию (метод снежного кома).');
+  } else advice.push('Долгов нет — альхамдулилла. Now цель: подушка на 3-6 месяцев расходов.');
+  if(exp>inc&&inc>0) advice.push('⚠️ Расходы превышают доход. Пересмотри категорию с самой большой тратой.');
+  if(S.budget<=0) advice.push('Задай месячный бюджет в разделе Финансы — без лимита деньги «утекают».');
+  advice.push('Перед каждой тратой спрашивай: это нужно или хочется? И давай садака — она очищает и приумножает ризк.');
+  return '# 💰 Финансовый разбор\n\n'+lines.join('\n')+'\n\n## 💡 Рекомендации\n'+
+    advice.map(function(a){return '• '+a;}).join('\n')+'\n\n'+
+    '«И давайте взаймы Аллаху прекрасный заём» — баракят не в сумме, а в том, как ты ею распоряжаешься.';
+}
+function ibadahAdvice(){
+  var nd=namazDone(), miss=[];
+  var pn={fajr:'Фаджр',zuhr:'Зухр',asr:'Аср',maghrib:'Магриб',isha:'Иша'};
+  for(var k in S.prayers){ if(!S.prayers[k]) miss.push(pn[k]+' ('+S.prayerTimes[k]+')'); }
+  return '# 🤲 Разбор ибадата\n\n'+
+    '**Намазы:** '+nd+'/5'+(miss.length?'\n\nЕщё не выполнены: '+miss.join(', '):' — все выполнены, машааллах!')+'\n\n'+
+    '**Зикр:** '+zikrTotal()+' из '+zikrMax()+'\n'+
+    '**Коран:** '+S.quranToday+'/'+S.quranGoal+' аятов\n\n'+
+    '## 💡 Совет\n'+
+    '• Намаз вовремя дороже намаза «когда-нибудь» — поставь напоминания\n'+
+    '• Привяжи зикр к привычкам: едешь, ждёшь, идёшь — поминай Аллаха\n'+
+    '• Даже 1 страница Корана в день = целая книга за год\n\n'+
+    'Пророк ﷺ сказал: «Самые любимые дела для Аллаха — постоянные, даже если малы».';
+}
+function motivation(){
+  var pool=[
+    '«Поистине, после тягости — облегчение» (Коран, 94:6). То, что сейчас трудно, завтра станет твоей силой. Не сдавайся.',
+    'Пророк ﷺ сказал: «Самые любимые дела для Аллаха — постоянные, даже если малы». Лучше один зикр каждый день, чем тысяча раз в год.',
+    '«Аллах не возлагает на душу больше того, что она может вынести» (2:286). Раз тебе дано это испытание — значит, ты сильнее, чем думаешь.',
+    'Усталость ради благого дела — это не потеря, а инвестиция. Каждый твой шаг записывается. Продолжай, БаракаЛлаху фик.',
+    '«Кто уповает на Аллаха — тому Его достаточно» (65:3). Сделай свою часть и доверься — остальное в руках Лучшего из устроителей.'
+  ];
+  var i=new Date().getDate()%pool.length;
+  return '# 🤲 Слово поддержки\n\n'+pool[i]+'\n\nТвой прогресс сегодня — '+lifeScore()+'%. '+
+    'Каждая отметка в приложении — это намерение стать лучше. А намерение Аллах уже записал. Вперёд! 💪';
+}
+
+function sendAI(forced){
+  var inp=$('aiInp');
+  var text=(typeof forced==='string'?forced:(inp?inp.value:'')).trim();
+  if(!text) return;
+  if(inp) inp.value='';
+  S.chat.push({role:'me',time:hhmm(new Date()),html:esc(text)});
+  UI.aiTyping=true;
+  renderApp(); scrollChatBottom();
+  var msgs=S.chat.filter(function(m){return m.role==='me'||m.role==='ai';})
+    .map(function(m){ return {role:m.role==='me'?'user':'assistant',content:stripHtml(m.html)}; });
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:buildSysPrompt(),messages:msgs})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var reply='';
+    if(data&&data.content) data.content.forEach(function(b){ if(b.type==='text') reply+=b.text; });
+    UI.aiTyping=false;
+    if(!reply) reply=localAI(text);
+    S.chat.push({role:'ai',time:hhmm(new Date()),html:mdToHtml(reply)});
+    save(); renderApp(); scrollChatBottom();
+  })
+  .catch(function(){
+    UI.aiTyping=false;
+    S.chat.push({role:'ai',time:hhmm(new Date()),html:
+      mdToHtml(localAI(text))+
+      '<div style="font-size:9px;color:var(--t4);margin-top:8px">⚠️ Офлайн-режим — анализ построен локально по твоим данным</div>'});
+    save(); renderApp(); scrollChatBottom();
+  });
+}
+function stripHtml(h){
+  return h.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&')
+    .replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').trim();
+}
+function mdToHtml(t){
+  var lines=esc(t).split('\n');
+  var out='', inList=false;
+  function closeList(){ if(inList){ out+='</ul>'; inList=false; } }
+  lines.forEach(function(ln){
+    var l=ln.trim();
+    if(/^[-•*▪]\s+/.test(l)||/^\d+[.)]\s+/.test(l)){
+      if(!inList){ out+='<ul style="margin:5px 0;padding-left:17px">'; inList=true; }
+      out+='<li style="margin:3px 0;line-height:1.5">'+l.replace(/^[-•*▪]\s+/,'').replace(/^\d+[.)]\s+/,'')+'</li>';
+    } else {
+      closeList();
+      if(/^#{1,3}\s+/.test(l)){
+        out+='<div style="font-weight:800;color:var(--gold2);margin:9px 0 3px;font-size:13px">'+l.replace(/^#+\s+/,'')+'</div>';
+      } else if(l===''){
+        out+='<div style="height:6px"></div>';
+      } else {
+        out+='<div style="margin:2px 0;line-height:1.55">'+l+'</div>';
+      }
+    }
+  });
+  closeList();
+  return out.replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--gold2)">$1</strong>');
+}
+
+/* ════════════ MODALS ════════════ */
+function modalHTML(){
+  if(!UI.modal) return '';
+  var body='';
+  if(UI.modal==='niyyah'){
+    body='<div class="mhead"><div class="mtitle">✦ Намерение дня</div><div class="mclose" onclick="closeModal()">✕</div></div>'+
+      '<textarea class="inp" id="niyyahInput" rows="3" style="resize:none">'+esc(S.niyyah)+'</textarea>'+
+      '<button class="btn primary block" style="margin-top:10px" onclick="saveNiyyah()">Сохранить</button>';
+  }
+  else if(UI.modal==='addtask'){
+    body='<div class="mhead"><div class="mtitle">✅ Новая задача</div><div class="mclose" onclick="closeModal()">✕</div></div>'+
+      '<div class="mgap"><input class="inp" id="taskTitle" placeholder="Что нужно сделать?">'+
+      '<input class="inp" id="taskMeta" placeholder="Время / детали (необязательно)">'+
+      '<select class="inp" id="taskTag"><option>Дин</option><option>Коран</option><option>Работа</option>'+
+      '<option>Спорт</option><option>Финансы</option><option>Семья</option></select>'+
+      '<button class="btn primary block" onclick="addTaskGo()">Добавить</button></div>';
+  }
+  else if(UI.modal==='addgoal'){
+    var hz=[['10years','10 лет'],['year','Год'],['month','Месяц'],['day','День']];
+    body='<div class="mhead"><div class="mtitle">🎯 Новая цель</div><div class="mclose" onclick="closeModal()">✕</div></div>'+
+      '<div class="mgap"><input class="inp" id="goalText" placeholder="Текст цели...">'+
+      '<div class="horizon-tabs">'+hz.map(function(h){
+        return '<div class="hz-tab'+(UI.horizon===h[0]?' act':'')+'" onclick="selectHorizon(\''+h[0]+'\')">'+h[1]+'</div>';
+      }).join('')+'</div>'+
+      '<select class="inp" id="goalCat"><option value="din">🕋 Дин / Семья</option>'+
+      '<option value="fin">💰 Финансы / Бизнес</option></select>'+
+      '<button class="btn primary block" onclick="addGoalGo()">Добавить цель</button></div>';
+  }
+  else if(UI.modal==='adddebt'){
+    body='<div class="mhead"><div class="mtitle">📉 Новый долг</div><div class="mclose" onclick="closeModal()">✕</div></div>'+
+      '<div class="mgap"><input class="inp" id="debtName" placeholder="Кому / описание">'+
+      '<input class="inp" id="debtAmount" type="number" inputmode="decimal" placeholder="Сумма">'+
+      '<select class="inp" id="debtCurrency"><option>UZS</option><option>USD</option><option>RUB</option><option>TJS</option></select>'+
+      '<button class="btn primary block" onclick="addDebtGo()">Добавить долг</button></div>';
+  }
+  return '<div class="modal-bg open" onclick="if(event.target===this)closeModal()">'+
+    '<div class="modal"><div class="mhandle"></div>'+body+'</div></div>';
+}
+
+/* ════════════ RENDER ════════════ */
+function screenContent(){
+  switch(S.screen){
+    case 'home':    return scrHome();
+    case 'ibadah':  return scrIbadah();
+    case 'quran':   return scrQuran();
+    case 'finance': return scrFinance();
+    case 'dev':     return scrDev();
+    case 'goals':   return scrGoals();
+    case 'stats':   return scrStats();
+    case 'tasbih':  return scrTasbih();
+    case 'ramadan': return scrRamadan();
+    case 'profile': return scrProfile();
+    default:        return scrHome();
+  }
+}
+function renderApp(){
+  var app=$('app'); if(!app) return;
+  var mid;
+  if(S.screen==='ai'){
+    mid=scrAI();
+  } else {
+    var inner;
+    try{ inner=screenContent(); }
+    catch(e){ console.error('screen error',e); inner='<div class="empty">Ошибка экрана. Перезагрузите страницу.</div>'; }
+    mid='<div class="scroll" id="scroll">'+inner+'<div class="pb"></div></div>';
+  }
+  app.innerHTML=
+    '<div class="cosmos"><div class="cosmos-stars"></div><div class="cosmos-glow"></div></div>'+
+    statusBar()+mid+bottomNav()+modalHTML();
+}
+
+/* ════════════ CLOCK ════════════ */
+function tick(){
+  var now=new Date();
+  var lt=$('liveTime'); if(lt) lt.textContent=hhmm(now);
+  var ls=$('liveSec'); if(ls) ls.textContent=pad(now.getSeconds())+' сек';
+  var st=document.querySelector('.stime'); if(st) st.textContent=hhmm(now);
+  var hc=$('hijriChip'); if(hc) hc.textContent='🕌 '+hijriDate();
+  var cd=$('pncd'); if(cd){ var np=nextPrayer(); if(np) cd.textContent=cdText(np.diff); }
+  if(now.getSeconds()===0){
+    var before=S.lastResetDate;
+    checkDayReset();
+    if(before!==S.lastResetDate){ save(); renderApp(); }
+  }
+}
+
+/* ════════════ INIT ════════════ */
+(function init(){
+  load();
+  applyTheme();
+  try{ renderApp(); }catch(e){ console.error('init error',e); }
+  fetchPrayerTimes();
+  fetchWeather();
+  fetchAyah();
+  fetchRates();
+  checkAchievements();
+  if(S.pinOn&&S.pin) showPinLock();
+  setInterval(tick,1000);
+  setInterval(fetchPrayerTimes,30*60*1000);
+  setInterval(fetchWeather,30*60*1000);
+  setInterval(fetchRates,60*60*1000);
+  setTimeout(function(){
+    document.querySelectorAll('.pfill').forEach(function(el){
+      var w=el.style.width; el.style.width='0';
+      setTimeout(function(){ el.style.width=w; },60);
+    });
+  },250);
+})();
+</script>
+</body>
+  </html>
